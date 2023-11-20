@@ -1,16 +1,18 @@
-import React from 'react'
 import { HiAcademicCap } from "react-icons/hi";
-
+import AutoPlayVideo from "../components/AutoPlayVideo";
+import TypingEffect from "../components/TypingEffect";
 
 
 const Home = () => {
+  const t = 'This is kushagra'
   return (
     <div>
-      <HiAcademicCap className='h-10 w-10' />
-      <p >Hey,</p>
-      <p>This is Kushagra</p>
+      <HiAcademicCap className="h-10 w-10" />
+      <p>Hey,</p>
+      <p>This is kushagra</p> 
+        <AutoPlayVideo />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

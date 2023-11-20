@@ -4,14 +4,16 @@ import profile from "../assets/profile.png";
 
 const Sidebar = ({ handleSidebar }) => {
   return (
-    <div
-      id="sidebar"
-      onClick={handleSidebar}
-      className="absolute w-[100%] h-[100vh] top-0 left-0 bg-[#4c2a9c10] hidden"
-    >
+    <div className="sm:hidden" >
+      <div
+        id="sidebar"
+        onClick={handleSidebar}
+        className="absolute w-[100%] h-[100vh] top-0 left-0 bg-[#9c2a6310] hidden"
+      ></div>
+
       <div
         id="sidebar-s"
-        className="flex flex-col rounded bg-[#1F1F1F]  w-96 p-2 h-[100%] absolute right-0 top-0 transition ease-in-out delay-150 translate-x-full"
+        className="flex flex-col rounded bg-[#1F1F1F]  w-96  p-2 h-[100%] absolute right-0 top-0 transition ease-in-out delay-150 translate-x-full shadow shadow-[#4c2a9c9d]"
       >
         <div className="bg-[#1F1F1F] shadow shadow-neutral-700 mb-4 flex justify-between py-2 ">
           <div className="flex">
