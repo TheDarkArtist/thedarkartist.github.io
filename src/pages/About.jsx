@@ -2,7 +2,7 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div>
+    <div className='h-[100svh]'>
       To Infinity & Beyond
     </div>
   )

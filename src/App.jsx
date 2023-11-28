@@ -11,25 +11,35 @@ import BlogDetails from "./pages/blog/BlogDetails";
 import BlogCreate from "./pages/blog/BlogCreate";
 import BlogDelete from "./pages/blog/BlogDelete";
 import BlogUpdate from "./pages/blog/BlogUpdate";
+import Message from "./components/Message";
 import Sidebar from "./components/Sidebar";
 
-function App() {
+function App() { 
   const [open, setOpen] = useState(false);
   const handleSidebar = () => {
+    const sidebar = document.querySelector("#sidebar");
+    const sidebarContainer = document.querySelector("#sidebar-container");
     if (open) {
-      document.getElementById("sidebar-s").classList.add("translate-x-full");
-      document.getElementById("sidebar").classList.add("hidden");
+      sidebarContainer.classList.add('hidden')
+      sidebar.classList.remove('w-80')
+      sidebar.classList.add('w-0')
       setOpen(false);
     } else {
-      document.getElementById("sidebar-s").classList.remove("translate-x-full");
-      document.getElementById("sidebar").classList.remove("hidden");
+      sidebarContainer.classList.remove('hidden')
+      sidebar.classList.add('w-80')
+      sidebar.classList.remove('w-0')
       setOpen(true);
     }
   };
 
+  
+
   return (
-    <>
+      <>  
       <Navbar handleSidebar={handleSidebar} />
+      <Message />
+      <Sidebar handleSidebar={handleSidebar} />
+    <div className="bg-gradient-to-tl from-[#000000] to-[#02020f]" >
       <div className="py-4 px-2 ">
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -45,7 +55,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <Sidebar handleSidebar={handleSidebar} />
+    </div>
     </>
   );
 }

@@ -22,7 +22,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className='pl-4' >
+    <div className='pl-4 min-h-screen' >
       <h2 className='py-1'>My GitHub Projects</h2>
       <ul className='flex flex-wrap' >
         {repos.map((repo) => (
@@ -31,8 +31,8 @@ const Projects = () => {
             <p className='text-green-600' >{repo.description}</p>
             <p>{repo.language}</p>
           </li>
-          
         ))}
+
       </ul>
     </div>
   );
