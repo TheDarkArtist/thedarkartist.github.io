@@ -58,10 +58,12 @@ function App() {
 
         
       </Helmet>
+
       <Navbar handleSidebar={handleSidebar} />
-      <Message />
       <Sidebar handleSidebar={handleSidebar} />
-    <div className="min-h-[100%] overflow-hidden" >
+
+    <div className="min-h-[100%] p-0.5 overflow-hidden pt-12" >
+        <Message />
       <div className="py-4 px-2 mt-2">
         <Routes>
           <Route exact path="/" element={<Home />} />

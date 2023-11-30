@@ -5,7 +5,7 @@ import profile from "../assets/profile.png";
 const Navbar = ({handleSidebar}) => {
   return (
     <div className="h-12 flex justify-between items-center fixed px-2 bg-slate-800 w-full z-30">
-      <div>TheDarkArtist</div>
+      <div className="hover:font-bold">TheDarkArtist</div>
       <div></div>
       <div>
         <ul className="flex items-center ">
