@@ -22,7 +22,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className='pl-4 min-h-screen' >
+    <div className='pl-4' >
       <h2 className='py-1'>My GitHub Projects</h2>
       <ul className='flex flex-wrap' >
         {repos.map((repo) => (

@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import profile from "../assets/profile.png";
 
 const Navbar = ({handleSidebar}) => {
   return (
-    <div className="h-12 flex justify-between items-center px-2 bg-slate-800 w-full z-30">
+    <div className="h-12 flex justify-between items-center fixed px-2 bg-slate-800 w-full z-30">
       <div>TheDarkArtist</div>
       <div></div>
       <div>

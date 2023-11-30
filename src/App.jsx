@@ -39,8 +39,8 @@ function App() {
       <Navbar handleSidebar={handleSidebar} />
       <Message />
       <Sidebar handleSidebar={handleSidebar} />
-    <div className="bg-gradient-to-tl from-[#000000] to-[#02020f]" >
-      <div className="py-4 px-2 ">
+    <div className="min-h-[100%] overflow-hidden" >
+      <div className="py-4 px-2 mt-2">
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />

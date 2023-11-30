@@ -4,9 +4,8 @@ import TypingEffect from "../components/TypingEffect";
 
 
 const Home = () => {
-  const t = 'This is kushagra'
   return (
-    <div className="h-[100vh]">
+    <div>
       <HiAcademicCap className="h-10 w-10" />
       <p>Hey,</p>
       <p>This is kushagra</p> 

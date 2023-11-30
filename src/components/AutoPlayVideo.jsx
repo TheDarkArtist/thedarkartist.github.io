@@ -10,8 +10,8 @@ const AutoPlayVideo = () => {
   }, []);
 
   return (
-    <div>
-      <video ref={videoRef} className="opacity-20" autoPlay muted loop >
+    <div className="mt-24 md:mt-0 absolute top-0 max-h-[100%] overflow-hidden" >
+      <video ref={videoRef} className="opacity-20 w-full" autoPlay muted loop >
         <source src={diamond} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
