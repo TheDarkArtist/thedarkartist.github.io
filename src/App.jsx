@@ -55,15 +55,13 @@ function App() {
         <meta name="twitter:title" content="TheDarkArtist" />
         <meta name="twitter:description" content="To Infinity & Beyond" />
         <meta name="twitter:image" content="https://www.thedarkartist.github.io/thumbnail.jpg" />
-
-        
       </Helmet>
 
       <Navbar handleSidebar={handleSidebar} />
       <Sidebar handleSidebar={handleSidebar} />
 
     <div className="min-h-[100%] p-0.5 overflow-hidden pt-12" >
-        <Message />
+        
       <div className="py-4 px-2 mt-2">
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -80,6 +78,7 @@ function App() {
         </Routes>
       </div>
     </div>
+
     </>
   );
 }
