@@ -5,7 +5,7 @@ import profile from "../assets/profile.png"
 const sbar = ({handleSidebar}) => {
   return (
     <>
-      <div id='sidebar-container' onClick={handleSidebar} className='hidden min-h-[100%] w-[100%] fixed absolute top-0 flex justify-end z-40 transition-all duration-300 ease-in-out overflow-hidden opacity-20 bg-cyan-500'>
+      <div id='sidebar-container' onClick={handleSidebar} className='hidden blur-lg min-h-[100%] w-[100%] fixed absolute top-0 flex justify-end z-40 transition-all duration-300 ease-in-out overflow-hidden opacity-20 bg-cyan-500'>
       </div>
       <div id='sidebar' className='min-h-[100%] bg-black w-0 transition-all duration-100 ease-in-out overflow-hidden fixed top-0 right-0 z-40 flex flex-col justify-top align-bottom '>
         <div className="bg-[#1F1F1F] shadow shadow-neutral-700 mb-4 flex justify-between py-2 ">

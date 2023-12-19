@@ -60,7 +60,7 @@ function App() {
       <Navbar handleSidebar={handleSidebar} />
       <Sidebar handleSidebar={handleSidebar} />
 
-    <div className="min-h-[100%] p-0.5 overflow-hidden pt-12" >
+    <div className="min-h-[100%] p-0.5 overflow-hidden pt-12 lg:pt-20" >
         
       <div className="py-4 px-2 mt-2">
         <Routes>
