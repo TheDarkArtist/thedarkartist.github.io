@@ -7,18 +7,19 @@ import Home from "./pages/Home";
 import Projects from "./pages/Projects";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
-import BlogHome from "./pages/blog/BlogHome";
-import BlogDetails from "./pages/blog/BlogDetails";
-import BlogCreate from "./pages/blog/BlogCreate";
-import BlogDelete from "./pages/blog/BlogDelete";
-import BlogUpdate from "./pages/blog/BlogUpdate";
 import Message from "./components/Message";
 import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/Dashboard";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
+import Blog from "./components/Blog";
 
 function App() {
   const [open, setOpen] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
+
+
   const handleSidebar = () => {
     const sidebar = document.querySelector("#sidebar");
     const sidebarContainer = document.querySelector("#sidebar-container");
@@ -36,6 +37,25 @@ function App() {
       setOpen(true);
     }
   };
+
+  const handleTDALoginClick = () => {
+    setShowLoginForm(!showLoginForm)
+    open && handleSidebar()
+  }
+
+   const handleSignUpForm = () => {
+      showSignUpForm && setShowSignUpForm(!showSignUpForm);
+  }
+
+  const handleCreateAccount = () =>{
+    setShowLoginForm(false);
+    setShowSignUpForm(true);
+  }
+
+  const handleLogin = () =>{
+    showSignUpForm && setShowSignUpForm(!showSignUpForm);
+    setShowLoginForm(true);
+  }
 
 
 
@@ -62,7 +82,10 @@ function App() {
       </Helmet>
 
       <Navbar handleSidebar={handleSidebar} />
-      <Sidebar handleSidebar={handleSidebar} />
+      <Sidebar handleSidebar={handleSidebar} handleTDALoginClick={handleTDALoginClick} />
+
+      { showLoginForm && <LoginForm handleTDALoginClick={handleTDALoginClick} handleCreateAccount={handleCreateAccount} /> }
+      { showSignUpForm && <SignUpForm handleLogin={handleLogin} handleSignUpForm={handleSignUpForm} /> }
 
       <div className="min-h-[100%] p-0.5 overflow-hidden pt-[3.2rem] lg:pt-[4rem]" >
         <Message msg="Under Development!" />
@@ -71,13 +94,8 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/about" element={<About />} />
-            <Route exact path="/blog">
-              <Route path="" element={<BlogHome />} />
-              <Route path=":id" element={<BlogDetails />} />
-              <Route path="create" element={<BlogCreate />} />
-              <Route path="delete" element={<BlogDelete />} />
-              <Route path="update" element={<BlogUpdate />} />
-            </Route>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

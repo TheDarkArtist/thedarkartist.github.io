@@ -22,7 +22,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <div className='' >
+    <div className='mx-2' >
       <div className=' text-xl'>My GitHub Projects</div>
       <div className='text-sm'>These projects will open on github for now, though, in future, i plan to add a kind of blog where i will describe each of these projects in detail.</div>
       <ul className='flex flex-wrap py-2' >
