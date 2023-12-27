@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { GoX } from "react-icons/go";
-import profile from "../assets/profile.png"
+import profile from "../../assets/profile.png"
 import { Link } from 'react-router-dom';
 
-import { auth } from "../Firebase";
 
 const sbar = ({ handleSidebar, handleTDALoginClick }) => {
   const [darkMode, setDarkMode] = useState(false);

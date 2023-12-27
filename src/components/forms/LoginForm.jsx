@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react'
 import tda from "../assets/tda.png";
 import { MdClose } from 'react-icons/md';
-import { auth } from "../Firebase";
 import SignUpForm from "../components/SignUpForm";
 import { GithubAuthProvider, GoogleAuthProvider, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';

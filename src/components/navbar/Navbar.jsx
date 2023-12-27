@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import profile from "../assets/profile.png";
-import tdaIcon from "../assets/tda.png";
+import profile from "../..//assets/profile.png";
+import tdaIcon from "../..//assets/tda.png";
 
 const Navbar = ({handleSidebar}) => {
   return (
