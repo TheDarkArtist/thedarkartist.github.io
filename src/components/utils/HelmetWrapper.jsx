@@ -1,10 +1,10 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
+import {Helmet, HelmetProvider } from "react-helmet-async"
 
 const HelmetWrapper = () => {
   return (
+    <HelmetProvider>
     <Helmet>
-      <title>TheDarkArtist</title>
       <meta name="description" content="To Infinity & Beyond" />
       <meta name="keywords" content="TheDarkArtist, Kushagra, tda, coding, mitrc, rajgarh, kushagra sharma, The Dark Artist, thedarkartist, the dark artist" />
       <meta name="author" content="TheDarkArtist" />
@@ -14,7 +14,6 @@ const HelmetWrapper = () => {
       <link rel="canonical" href="https://www.thedarkartist.github.io/" />
       <meta property="og:title" content="TheDarkArtist - Portfolio" />
       <meta property="og:description" content="To Infinity & Beyond" />
-      {/* <meta property="og:image" content="https://www.yourportfolio.com/thumbnail.jpg" /> */}
       <meta property="og:url" content="https://www.thedarkartist.github.io" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="@TheDarkArtist00" />
@@ -22,6 +21,7 @@ const HelmetWrapper = () => {
       <meta name="twitter:description" content="To Infinity & Beyond" />
       <meta name="twitter:image" content="https://www.thedarkartist.github.io/thumbnail.jpg" />
     </Helmet>
+    </HelmetProvider>
   )
 }
 
