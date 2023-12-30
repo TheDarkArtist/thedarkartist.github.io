@@ -4,7 +4,7 @@ const DarkMode = () => {
   const e = document.getElementById('html');
   const [darkMode, setDarkMode ] = useState(()=>{
     const storedMode = localStorage.getItem('darkMode')
-    return storedMode ? JSON.parse(storedMode): false;
+    return storedMode ? JSON.parse(storedMode): true;
   });
 
   useEffect(() =>{
