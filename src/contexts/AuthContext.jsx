@@ -1,4 +1,4 @@
-import { auth } from "../services/Firebase";
+import {auth} from "../services/Firebase";
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, signOut, sendPasswordResetEmail, updateEmail, updatePassword } from "firebase/auth";
 

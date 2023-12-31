@@ -15,7 +15,7 @@ const sbar = ({ handleSidebar, handleLoginForm }) => {
 
   return (
     <>
-      <div id='sidebar-container' onClick={handleSidebar} className='hidden min-h-[100%] w-[100%] fixed absolute top-0 flex justify-end z-40 overflow-hidden opacity-40 bg-black'>
+      <div id='sidebar-container' onClick={handleSidebar} className='hidden h-[100%] w-[100%] fixed  top-0 flex justify-end z-40 overflow-hidden opacity-40 bg-black'>
       </div>
 
       <div id='sidebar' className=' min-h-[100%] dark:bg-zinc-950 dark:text-white bg-white w-0  transition-all duration-100 ease-in-out overflow-hidden fixed top-0 right-0 z-40 flex flex-col justify-top align-bottom shadow-l shadow-lg shadow-neutral-700 '>
@@ -37,11 +37,11 @@ const sbar = ({ handleSidebar, handleLoginForm }) => {
           />
         </div>
         <div id='sidebar-items' className="flex flex-col justify-start text-black dark:text-white ">
-          <span className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer'> <Link to="/dashboard">Dashboard</Link></span>
+          <span> <Link  className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' to="/dashboard">Dashboard</Link></span>
           <span className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' onClick={handleLoginForm}>Login</span>
           <span className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' >Log Out</span>
           <div className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' ><DarkMode /></div>
-          <span className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' ><Link to="/Blog" >Blog</Link></span>
+          <span ><Link  className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' to="/blog" >Blog</Link></span>
 
         </div>
       </div>

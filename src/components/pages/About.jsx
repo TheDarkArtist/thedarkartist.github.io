@@ -4,11 +4,13 @@ const About = () => {
 
   const skills = [
     ['Languages', 'Frameworks', 'Personal',],
-    ['python', 'django', ''],
-    ['javascript', 'react.js', ''],
-    ['rust', 'flask', ''],
-    ['dart', 'flutter'],
-    ['typescript']
+    ['python', 'django', 'Problem-Solving'],
+    ['javascript', 'react.js', 'Strategic Thinker'],
+    ['rust', 'flask', 'Detail-Oriented'],
+    ['dart', 'flutter','Resourcefull'],
+    ['typescript','TailwindCSS','Collaborative'],
+    ['C','Bootstrap',''],
+    ['SQL','Firebase',''],
   ]
 
   return (
