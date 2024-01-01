@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/Firebase';
 import { useParams } from 'react-router-dom';
-import Markdown from 'react-markdown';
 
-import BlogBar from './BlogBar';
+import BlogBar from './ProjectBlogBar';
 
-const BlogDetails = () => {
+const ProjectBlogDetails = () => {
   const [blog, setBlog] = useState([]);
-  const { id } = useParams();
+  const {id} = useParams();
 
   useEffect(() => {
     const fetchBlog = async () => {
-      const docRef = doc(db, 'blog', id)
+      const docRef = doc(db, 'projectBlog', id)
       const docSnap = await getDoc(docRef);
       setBlog(docSnap.data());
     }
@@ -22,13 +21,13 @@ const BlogDetails = () => {
 
   return (
     <>
-      <BlogBar id={id} condition={true} />
-      <div className='p-2' >
-        <div className='text-2xl' >{blog.title}</div>
-        <div className='py-4' >{blog.body}</div>
-      </div>
+    <BlogBar id={id} condition={true} />
+    <div className='p-2' >
+      <div className='text-[1.2rem]' >{blog.title}</div>
+      <div className='py-2' >{blog.body}</div>
+    </div>
     </>
   )
 }
 
-export default BlogDetails
+export default ProjectBlogDetails

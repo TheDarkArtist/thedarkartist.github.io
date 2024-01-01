@@ -1,10 +1,10 @@
 import React, { useRef } from 'react'
 import {db } from '../../services/Firebase';
-import BlogBar from './BlogBar';
-import {collection, addDoc } from 'firebase/firestore';
+import BlogBar from './ProjectBlogBar';
+import {collection, addDoc, Timestamp, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
-const BlogCreate = () => {
+const ProjectBlogCreate = () => {
 
   const titleRef = useRef();
   const bodyRef = useRef();
@@ -13,18 +13,20 @@ const BlogCreate = () => {
   const addBlog = async (e) =>{ 
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, 'blog'), {
+      const docRef = await addDoc(collection(db, 'projectBlog'), {
         title: titleRef.current.value,
-        body: bodyRef.current.value
+        body: bodyRef.current.value,
+        languages: ['python', 'rust', 'javascript'],
+        createdAt: Timestamp.fromDate(new Date()),
       })
-      navigate('/blog')
+      navigate('/projects')
     } catch (error) {
       console.log('tda error ' + error);
     }
   }
 
   const handleCancle = () =>{ 
-    navigate('/blog')
+    navigate('/projects')
   }
 
   return (
@@ -46,4 +48,4 @@ const BlogCreate = () => {
   )
 }
 
-export default BlogCreate
+export default ProjectBlogCreate

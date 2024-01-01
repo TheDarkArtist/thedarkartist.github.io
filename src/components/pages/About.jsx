@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useEffect, useState, useRef} from 'react'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+
+import { db } from '../../services/Firebase';
 
 const About = () => {
 
@@ -12,6 +15,28 @@ const About = () => {
     ['C','Bootstrap',''],
     ['SQL','Firebase',''],
   ]
+
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const msgRef = useRef();
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+    try{
+    const docRef = addDoc(collection(db, 'messages'),{
+        name: nameRef.current.value,
+        email: emailRef.current.value,
+        msg: msgRef.current.value,
+        createdAt: serverTimestamp(),
+      });
+      nameRef.current.value = '';
+      emailRef.current.value = '';
+      msgRef.current.value = '';
+      alert('message sent!');
+    }catch(error){
+     console.log('Error on message submit ::==> ', error);  
+    }
+  }
 
   return (
     <div className='flex flex-col items-center'>
@@ -28,10 +53,12 @@ const About = () => {
         <div className='flex p-4 flex-col w-[95%] md:w-[40%] border border-blue-800 shadow-md mt-6 md:mt-0 shadow-blue-800 '>
           <div className='text-xl font-bold text-blue-700'>Contact Me..</div>
           <div>
-            <input className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
-            <input className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
-            <textarea className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
+            <form onSubmit={handleSubmit} >
+            <input ref={nameRef} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
+            <input ref={emailRef} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
+            <textarea ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
             <div className='w-full flex justify-end'><button id='about-contact-send-btn' className='bg-green-700 hover:bg-green-800 my-2 p-1 focus:outline-none w-20 text-green-200' >Send</button></div>
+            </form>
           </div>
           <div className='mt-4 flex flex-wrap'>
             <a href='https://facebook.com' target='_blank' className="border border-blue-400 flex m-2 items-center justify-center my-1 p-1 focus:outline-none bg-blue-700 w-40 hover:bg-blue-800 text-blue-200">Facebook</a>
