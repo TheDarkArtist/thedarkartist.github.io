@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { AuthProvider, SignupForm } from './contexts/AuthContext';
+import { SignupForm, LoginForm} from './contexts/Auth';
 
 // Components 
 import HelmetWrapper from "./components/utils/HelmetWrapper";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import AppRoutes from "./components/routes/AppRoutes";
-import { LoginForm } from "./contexts/AuthContext";
 
 function App() {
 
   const [open, setOpen] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false)
-
   const loginFormID = document.getElementById("login-form");
 
   const handleSidebar = () => {
@@ -51,7 +49,7 @@ function App() {
 
 
 
-  return <AuthProvider>
+  return (
     <div id="html">
       <HelmetWrapper />
       <Navbar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
@@ -62,7 +60,7 @@ function App() {
         <AppRoutes />
       </div>
     </div>
-  </AuthProvider>;
+  );
 }
 
 export default App

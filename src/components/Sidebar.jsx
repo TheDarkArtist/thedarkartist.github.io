@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import {useAuth} from '../contexts/AuthContext';
 import { GoX } from "react-icons/go";
 import profile from "../assets/profile.png"
 import { Link } from 'react-router-dom';
@@ -7,11 +8,17 @@ import DarkMode from './utils/DarkMode';
 
 const sbar = ({ handleSidebar, handleLoginForm }) => {
 
+  const {currentUser, logout} = useAuth();
+
   document.querySelectorAll('#sidebar-items span').forEach(li => {
     li.addEventListener('click', () => {
       handleSidebar()
     });
   });
+
+  const handleLogout = () =>{
+    logout();
+  }
 
   return (
     <>
@@ -27,7 +34,7 @@ const sbar = ({ handleSidebar, handleLoginForm }) => {
               alt=""
             />
             <div>
-              <div className=" text-sm">Kushagra Sharma</div>
+              <div className=" text-sm">{currentUser && currentUser.displayName}</div>
               <div className="text-sm">TheDarkArtist</div>
             </div>
           </div>
@@ -38,8 +45,8 @@ const sbar = ({ handleSidebar, handleLoginForm }) => {
         </div>
         <div id='sidebar-items' className="flex flex-col justify-start text-black dark:text-white ">
           <span> <Link  className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' to="/dashboard">Dashboard</Link></span>
-          <span className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' onClick={handleLoginForm}>Login</span>
-          <span className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' >Log Out</span>
+          { !currentUser && <span className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' onClick={handleLoginForm}>Login</span>}
+          { currentUser && <span onClick={handleLogout} className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' >Log Out</span>}
           <div className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' ><DarkMode /></div>
           <span ><Link  className='border-t border-b  border-red-950 flex items-center w-full font-light  h-10 px-4 py-2 hover:bg-[#3a383a56] cursor-pointer' to="/blog" >Blog</Link></span>
 
