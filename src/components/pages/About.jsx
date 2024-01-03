@@ -71,8 +71,8 @@ const About = () => {
         <div className='flex flex-col border-blue-400 w-full md:w-[60%] rounded shadow-lg shadow-blue-950' >
 
           <div className='border border-blue-800 rounded-b m-2'>
-            <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Personal Details</div>
-            <div className='p-2 text-sm dark:text-stone-300'>
+            <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-900 to-cyan-900 flex items-center font-bold text-blue-200'>Personal Details</div>
+            <div className='p-2 text-sm bg-gray-300 dark:bg-transparent dark:text-stone-300'>
               <div>Kushagra Sharma</div>
               <div>Ashirwad Garden, Rest House Road, Rajgarh, Alwar</div>
               <div>TheDarkArtist@proton.me | +917426072284</div>

@@ -44,7 +44,7 @@ const RightPannel = ({ selectedComponent }) => {
 
 const Dashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(null)
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const {currentUser} = useAuth();
 
   const handleItemClick = (item) => {
@@ -53,12 +53,13 @@ const Dashboard = () => {
 
   const handleSidebar = () => {
     const ccs = document.getElementById('ccs');
-    if (open) {
-      ccs.classList.remove('w-60');
-      ccs.classList.add('w-0');
+    if (!open) {
+      ccs.classList.remove('w-0');
+      ccs.classList.add('w-60');
       setOpen(!open)
     } else {
-      ccs.classList.add('w-60');
+      ccs.classList.remove('w-60');
+      ccs.classList.add('w-0')
       setOpen(!open)
     }
   }
@@ -66,8 +67,8 @@ const Dashboard = () => {
   return (
     <>
       <div className="flex fixed justify-between items-center px-2 w-full h-10 bg-green-950">
-        <HiMenu onClick={handleSidebar} className=' h-8 w-8 text-stone-400 cursor-pointer' />
-        <div className='font-light' >COMMAND CENTER</div>
+        <div>{ currentUser && <HiMenu onClick={handleSidebar} className=' h-8 w-8 text-stone-400 cursor-pointer' />}</div>
+        <div className='font-light text-center w-full' >COMMAND CENTER</div>
         <div className='font-light'>{currentUser && currentUser.username}</div>
       </div>
       { currentUser ? <div className='flex w-full'>

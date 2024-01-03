@@ -20,7 +20,7 @@ const DarkMode = () => {
 
 
   return (
-    <div className='flex text-sm p-1'>
+    <div className='flex text-sm'>
     <div className='pr-2'>DarkMode</div>
     <input type='checkbox' checked={darkMode} onChange={handleDarkMode}/>
     </div>
