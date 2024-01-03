@@ -54,7 +54,7 @@ function App() {
       <HelmetWrapper />
       <Navbar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
       <Sidebar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
-      <div className="pt-14 md:pt-20" >
+      <div className="pt-12 md:pt-16" >
         {showLoginForm && <LoginForm handleLoginForm={handleLoginForm} handleLoginSignup={handleLoginSignup} />}
         {showSignupForm && <SignupForm handleSignupForm={handleSignupForm} handleLoginSignup={handleLoginSignup} />}
         <AppRoutes />

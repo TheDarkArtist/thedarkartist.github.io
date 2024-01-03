@@ -9,13 +9,13 @@ import {useAuth} from './AuthContext';
 export const LoginForm = ({ handleLoginForm, handleLoginSignup }) => {
 
 	const { user, login, forgotPassword } = useAuth();
-	const emailRef = useRef();
+	const identifierRef = useRef();
 	const passwordRef = useRef();
 	const navigate = useNavigate();
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		login(emailRef.current.value, passwordRef.current.value);
+		login(identifierRef.current.value, passwordRef.current.value);
 		navigate('/')
 		handleLoginForm();
 	};
@@ -32,7 +32,7 @@ export const LoginForm = ({ handleLoginForm, handleLoginSignup }) => {
 				<AiOutlineClose onClick={handleLoginForm} className="absolute right-4 top-4" />
 				<div className="w-full flex justify-center py-6"><img className="mix-blend-overlay h-32 w-40 animate-pulse" src={tda} alt="" /></div>
 				<form className="flex flex-col items-center w-full" onSubmit={handleOnSubmit}>
-					<input required type="email" ref={emailRef} placeholder="Email" className="bg-green-800 focus:outline-none py-1 px-2 my-1 w-[90%]" />
+					<input required type="text" ref={identifierRef} placeholder="Email/Username" className="bg-green-800 focus:outline-none py-1 px-2 my-1 w-[90%]" />
 					<input required type="password" ref={passwordRef} placeholder="Password" className="bg-green-800 focus:outline-none py-1 px-2 my-1 w-[90%]" />
 					<button className="bg-blue-800 my-2 px-2 py-1 w-[90%]" >Login</button>
 				</form>
@@ -59,24 +59,26 @@ export const SignupForm = ({ handleSignupForm, handleLoginSignup }) => {
 	const {signup, verifyEmail} = useAuth();
 	const emailRef = useRef();
 	const passwordRef = useRef();
+	const usernameRef = useRef();
 	const navigate = useNavigate();
 
 	const handleOnSubmit = async (e) => {
 		e.preventDefault();
-		signup(emailRef.current.value, passwordRef.current.value)
+		signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value)
 		verifyEmail()
 		navigate('/');
 		handleSignupForm();
 	};
 
 	return <>
-		<div onClick={handleSignupForm} className="h-[100vh] absolute top-0 z-30 w-full backdrop-blur-sm flex justify-center"></div>
-		<div className="w-full h-0 flex justify-center" >
+		<div onClick={handleSignupForm} className="h-[100vh] absolute top-0  w-full backdrop-blur-sm flex justify-center"></div>
+		<div className="w-full h-0 z-40 flex justify-center" >
 			<div className="flex fixed flex-col justify-start items-stretch bg-blue-950 p-2 min-h-[35rem] md:min-h-[30rem] z-40 w-[90%] md:w-[20rem] top-40 border border-red-500 ">
 				<div className="w-full mb-2 text-center text-blue-300 text-2xl font-bold">Sign Up</div>
 				<AiOutlineClose onClick={handleSignupForm} className="absolute right-4 top-4" />
 				<div className="w-full flex justify-center py-6"><img className="mix-blend-overlay h-32 w-40 animate-pulse" src={tda} alt="" /></div>
 				<form className="flex flex-col items-center w-full" onSubmit={handleOnSubmit}>
+					<input required type="text" ref={usernameRef} placeholder="Username" className="bg-green-800 focus:outline-none py-1 px-2 my-1 w-[90%]" />
 					<input required type="email" ref={emailRef} placeholder="Email" className="bg-green-800 focus:outline-none py-1 px-2 my-1 w-[90%]" />
 					<input required type="password" ref={passwordRef} placeholder="Password" className="bg-green-800 focus:outline-none py-1 px-2 my-1 w-[90%]" />
 					<button className="bg-blue-800 my-2 px-2 py-1 w-[90%]" >Sign Up</button>

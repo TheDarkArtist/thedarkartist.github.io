@@ -1,9 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-
+import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../services/Firebase';
 
 const About = () => {
+
+  const {currentUser } = useAuth();
 
   const skills = [
     ['Languages', 'Frameworks', 'Personal',],
@@ -39,7 +41,7 @@ const About = () => {
   }
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center '>
 
       <div className='flex justify-between items-center h-10 w-full bg-gradient-to-tl from-green-900 via-green-700 to-green-800 mb-2 px-4'>
         <div className='font-bold'>WHOAMI</div>
@@ -54,8 +56,8 @@ const About = () => {
           <div className='text-xl font-bold text-blue-700'>Contact Me..</div>
           <div>
             <form onSubmit={handleSubmit} >
-            <input ref={nameRef} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
-            <input ref={emailRef} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
+            <input ref={nameRef} defaultValue={currentUser && currentUser.name.first +' '+ currentUser.name.last} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
+            <input ref={emailRef} defaultValue={ currentUser && currentUser.email} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
             <textarea ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
             <div className='w-full flex justify-end'><button id='about-contact-send-btn' className='bg-green-700 hover:bg-green-800 my-2 p-1 focus:outline-none w-20 text-green-200' >Send</button></div>
             </form>
@@ -70,7 +72,7 @@ const About = () => {
 
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Personal Details</div>
-            <div className='p-2 text-sm'>
+            <div className='p-2 text-sm dark:text-stone-300'>
               <div>Kushagra Sharma</div>
               <div>Ashirwad Garden, Rest House Road, Rajgarh, Alwar</div>
               <div>TheDarkArtist@proton.me | +917426072284</div>
@@ -81,14 +83,14 @@ const About = () => {
           </div>
 
           <div className='border border-blue-800 rounded-b m-2'> <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Objective</div>
-            <div className='border-blue-400 p-2'>
+            <div className='border-blue-400 dark:text-stone-300 p-2'>
               On a quest for perfection in the digital realm, I'm geared up to collaborate with brilliant minds. Eager to architect, design, and breathe life into software, my journey is fueled by a commitment to continuous learning. With a hunger for mastering new technologies, I bring a deep understanding of cyber security, ensuring that our innovative solutions not only push boundaries but also stand as fortresses against digital threats. Let's make coding dreams a pixel-perfect reality while prioritizing the utmost integrity and resilience in our cyber defenses. Ready to dive into the world of endless possibilities!</div>
           </div>
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Education</div>
             <div className='border-blue-400 p-2 text-sm'>
-              <ul className='list-disc pl-4' >
-                <div className='py-1' >
+              <ul className='list-disc pl-4 dark:text-stone-300' >
+                <div className='py-1 ' >
                   <li>10<span className='align-super' >th</span> Class <span className='pl-4'>78%</span> <span className="pl-4">2017-2018</span></li>
                   <p>Swami Ganga Bharti Sr. Sec. School, Rajgarh, Alwar</p>
                 </div>
@@ -109,18 +111,18 @@ const About = () => {
 
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Experience</div>
-            <div className='border-blue-400 p-1'> Student </div>
+            <div className='border-blue-400 p-1 dark:text-stone-300'> Student </div>
           </div>
 
 
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Skills</div>
-            <div className='border-blue-400 p-2 overflow-x-scroll '>
+            <div className='border-stone-400 p-2 overflow-x-scroll dark:text-stone-300'>
               <table>
                 <thead>
                   <tr >
                     {skills[0].map((header, index) => (
-                      <th className='px-2 border-l border-b' key={index}>{header}</th>
+                      <th className='px-2 border-l border-b border-stone-500' key={index}>{header}</th>
                     ))}
                   </tr>
                 </thead>
@@ -128,7 +130,7 @@ const About = () => {
                   {skills.slice(1).map((row, rowIndex) => (
                     <tr key={rowIndex}>
                       {row.map((cell, cellIndex) => (
-                        <td className='px-2 border-l' key={cellIndex}>{cell}</td>
+                        <td className='px-2 border-l border-stone-500' key={cellIndex}>{cell}</td>
                       ))}
                     </tr>
                   ))}
@@ -139,7 +141,7 @@ const About = () => {
 
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Interests</div>
-            <div className='border-blue-400 p-2'>
+            <div className='border-blue-400 p-2 dark:text-stone-300'>
               <p>
                 Passionate about exploring the intricate world of hacking, programming, and artificial intelligence. My curiosity extends beyond the digital realm, delving into philosophy to understand the underlying principles shaping our technological landscape. </p>
               <p>As a perpetual learner, I thrive on dissecting complex problems and finding innovative solutions. In my free time, I indulge in the art of software development. Always up for a challenge, I find inspiration in the pursuit of perfection, both in code and in the broader spectrum of life.
@@ -150,7 +152,7 @@ const About = () => {
 
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-700 to-cyan-900 flex items-center font-bold text-blue-200'>Achievements & Certs</div>
-            <div className='border-blue-400 p-2'>
+            <div className='border-blue-400 p-2 dark:text-stone-300'>
               <p>Smart India Hackathon 2022 Finalist</p>
               <p>Javascript cert by HackerRank</p>
 
