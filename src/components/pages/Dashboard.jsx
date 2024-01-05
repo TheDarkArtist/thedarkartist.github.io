@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { HiMenu } from "react-icons/hi";
-import { Projects, Profile, Blog, Resume, Contact, Users } from '../Dashboard';
+import { Projects, Profile, Blog, Resume, Messages, Users } from '../Dashboard';
 
 import {useAuth} from "../../contexts/AuthContext";
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ onItemClick, handleSidebar }) => {
-  const sidebarItems = ['Profile', 'Projects', 'Blog', 'Resume', 'Contact', 'Users']
+  const sidebarItems = ['Profile', 'Projects', 'Blog', 'Resume', 'Messages', 'Users']
   return (
     <ul id='ccs' className='bg-zinc-950 w-0 md:w-60 fixed md:block overflow-hidden h-full border-r border-zinc-700 transition-all ease-in-out delay-100'>
       <li className='flex items-center py-4 px-2 text-xl bg-black text-stone-400' >
@@ -29,7 +29,7 @@ const RightPannel = ({ selectedComponent }) => {
     Projects,
     Blog,
     Resume,
-    Contact,
+    Messages,
     Users,
   }
   const SelectedComponent = componentMap[selectedComponent]
@@ -49,6 +49,7 @@ const Dashboard = () => {
 
   const handleItemClick = (item) => {
     setSelectedComponent(item);
+    handleSidebar();
   }
 
   const handleSidebar = () => {
@@ -68,8 +69,8 @@ const Dashboard = () => {
     <>
       <div className="flex fixed justify-between items-center px-2 w-full h-10 bg-green-950">
         <div>{ currentUser && <HiMenu onClick={handleSidebar} className=' h-8 w-8 text-stone-400 cursor-pointer' />}</div>
-        <div className='font-light text-center w-full' >COMMAND CENTER</div>
-        <div className='font-light'>{currentUser && currentUser.username}</div>
+        <div className='font-light text-center text-white w-full' >COMMAND CENTER</div>
+        <div className='font-light text-white'>{currentUser && currentUser.username}</div>
       </div>
       { currentUser ? <div className='flex w-full'>
         <Sidebar handleSidebar={handleSidebar} onItemClick={handleItemClick} />

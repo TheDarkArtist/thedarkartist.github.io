@@ -1,9 +1,81 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+
+import Search from './Search';
+import { db } from '../../services/Firebase';
 
 const Blog = () => {
+  const [blogs, setBlogs] = useState(null);
+
+  const blogsHeader = [<input type="checkbox" />, 'No.', 'Title', 'Author', 'Action']
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      let list = [];
+      try {
+        const querySnapshot = await getDocs(collection(db, 'blog'))
+        querySnapshot.forEach(doc => {
+          list.push({ id: doc.id, ...doc.data() })
+        })
+        setBlogs(list);
+        console.log(list)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    fetchBlogs();
+  }, [Blog])
+
   return (
-    <div>Blog</div>
+    <div className='min-h-[80vh] mt-10 w-full ' >
+      <div className='w-full flex justify-center py-4'><Search /></div>
+
+      <div className='w-full text-sm md:text-lg flex flex-col items-center justify-center my-10' >
+
+        <div className='bg-green-950 border border-green-900 h-10 w-full flex justify-between items-center px-2 mx-2 md:w-[80%]' >
+          <span className='mx-2 font-bold text-lg'>Blogs</span>
+          <div className='p-2 underline text-blue-500' >
+            <span className='mx-2 cursor-pointer'>delete</span>
+          </div>
+        </div>
+
+        <div className='w-full text-green-400 md:w-[80%]' >
+          <div className='mx-.5 overflow-y-auto overflow-x-auto ' >
+            <table className='w-full border-collapse ' >
+              <thead>
+                <tr className='border'>
+                  {blogsHeader.map(header => (
+                    <td className='p-2 border border-green-900'>{header}</td>
+                  ))
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                {blogs ? blogs.map((blog, index) => [
+                  <tr key={index} >
+                    <td className='p-2 border border-green-900' ><input className='accent-green-700 ' type="checkbox" /></td>
+                    <td className='p-2 border border-green-900 ' >{index}</td>
+                    <td className='p-2 border border-green-900 ' >{blog.title}</td>
+                    <td className='p-2 border border-green-900 ' >undefined</td>
+                    <td className='p-2 border border-green-900 underline text-blue-500' >
+                      <span className='mx-2 cursor-pointer'>view</span>
+                      <span className='mx-2 cursor-pointer'>update</span>
+                      <span className='mx-2 cursor-pointer'>delete</span>
+                    </td>
+                  </tr>
+                ]) : 'no blogs'}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div >
   )
 }
+
 
 export default Blog

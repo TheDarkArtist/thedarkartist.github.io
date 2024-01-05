@@ -5,7 +5,7 @@ const BlogBar = ({id, condition }) => {
 
   return (
     <div className='flex justify-between py-1 px-4 bg-gradient-to-tl from-green-900 via-green-700 to-green-900' >
-      <Link to={'/blog'} > Blogs </Link>
+      <Link to={'/blog'} className='text-green-300' > Blogs </Link>
       <span className='text-blue-300' >
         {condition &&  <Link className='px-1' to={`/blog/delete/${id}`} >Delete</Link>}
         {condition && <Link className='px-1' to={`/blog/update/${id}`} >Update </Link>}

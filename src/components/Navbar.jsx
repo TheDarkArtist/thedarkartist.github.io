@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import tdaIcon from "../assets/tda.png";
 import { AiOutlineUser } from "react-icons/ai";

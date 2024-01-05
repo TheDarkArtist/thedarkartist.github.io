@@ -4,26 +4,27 @@ import { collection, getDocs } from 'firebase/firestore';
 import Search from './Search';
 import { db } from '../../services/Firebase';
 
-const Users = () => {
-  const [users, setUsers] = useState(null);
+const Messages = () => {
+  const [messages, setMessages] = useState(null);
 
-  const usersHeader = [<input type="checkbox" />, 'No.', 'Name', 'Username', 'Email', 'Action']
+  const messagesHeader = ['No.', 'Date', 'Message', 'Name', 'Email']
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchMessages = async () => {
       let list = [];
       try {
-        const querySnapshot = await getDocs(collection(db, 'users'))
+        const querySnapshot = await getDocs(collection(db, 'messages'))
         querySnapshot.forEach(doc => {
-          list.push({ id: doc.id, ...doc.data() })
+          list.push({ ...doc.data() })
         })
-        setUsers(list);
+        setMessages(list);
+        console.log(list)
       } catch (error) {
         console.log(error)
       }
     }
 
-    fetchUsers();
+    fetchMessages();
   }, [])
 
   return (
@@ -33,9 +34,9 @@ const Users = () => {
       <div className='w-full text-sm md:text-lg flex flex-col items-center justify-center my-10' >
 
         <div className='bg-green-950 border border-green-900 h-10 w-full flex justify-between items-center px-2 mx-2 md:w-[80%]' >
-          <span className='mx-2 font-bold text-lg'>Users</span>
+          <span className='mx-2 font-bold text-lg'>Messages</span>
           <div className='p-2 underline text-blue-500' >
-            <span className='mx-2 cursor-pointer'>delete</span>
+            <span className='mx-2 cursor-pointer'></span>
           </div>
         </div>
 
@@ -44,26 +45,23 @@ const Users = () => {
             <table className='w-full border-collapse ' >
               <thead>
                 <tr className='border'>
-                  {usersHeader.map(header => (
+                  {messagesHeader.map(header => (
                     <td className='p-2 border border-green-900'>{header}</td>
                   ))
                   }
                 </tr>
               </thead>
               <tbody>
-                {users ? users.map((user, index) => [
+                {messages ? messages.map((msg, index) => [
                   <tr key={index} >
-                    <td className='p-2 border border-green-900' ><input className='accent-green-700 ' type="checkbox" /></td>
-                    <td className='p-2 border border-green-900 ' >{index}</td>
-                    <td className='p-2 border border-green-900 ' >{user.name.first + ' ' + user.name.last}</td>
-                    <td className='p-2 border border-green-900 ' >{user.username}</td>
-                    <td className='p-2 border border-green-900 ' >{user.email}</td>
-                    <td className='p-2 border border-green-900 underline text-blue-500' >
-                      <span className='mx-2 cursor-pointer'>view</span>
-                      <span className='mx-2 cursor-pointer'>delete</span>
-                    </td>
+
+                     <td className='p-2 border border-green-900 ' >{index}</td>
+                     <td className='p-2 border border-green-900 ' >{Date(msg.createdAt)}</td>
+                    <td className='p-2 border border-green-900 ' >{msg.msg}</td>
+                    <td className='p-2 border border-green-900 ' >{msg.name}</td>
+                    <td className='p-2 border border-green-900 ' >{msg.email}</td>
                   </tr>
-                ]) : 'no users'}
+                ]) : 'no messages'}
 
               </tbody>
             </table>
@@ -76,4 +74,5 @@ const Users = () => {
   )
 }
 
-export default Users
+
+export default Messages;

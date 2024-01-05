@@ -1,10 +1,10 @@
-import React, { createContext, isValidElement, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, sendEmailVerification, updatePassword, sendPasswordResetEmail, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { auth, db } from '../services/Firebase';
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, setDoc,updateDoc, where } from 'firebase/firestore';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null);
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 		try {
 			const isUsernameUnique = async () => {
 				try {
-					const q = query(collection(db, 'users'),where('username', '==', username))
+					const q = query(collection(db, 'users'), where('username', '==', username))
 					const querySnapshot = await getDocs(q)
 					console.log(querySnapshot.size)
 					return querySnapshot.empty
@@ -96,8 +96,6 @@ export const AuthProvider = ({ children }) => {
 							state: '',
 							zip: '',
 						},
-
-
 					});
 					alert('Account created !');
 					verifyEmail(result.user);
@@ -156,17 +154,24 @@ export const AuthProvider = ({ children }) => {
 			})
 	}
 
-	const getUserData = async (uid) => {
-		const userDocRef = doc(db, 'users', uid);
-		const userDoc = await getDoc(userDocRef);
 
-		if (userDoc.exists()) {
-			const userData = userDoc.data();
-			return userData;
-		} else {
-			return null;
-		}
-	}
+	const getUserData = useCallback((uid) => {
+		const userDocRef = doc(db, "users", uid);
+		console.log('getDoc run')
+		return getDoc(userDocRef)
+			.then((doc) => {
+				if (doc.exists()) {
+					return doc.data();
+				} else {
+					console.log("No such document!");
+					return null;
+				}
+			})
+			.catch((error) => {
+				console.error("Error getting document:", error);
+				return null;
+			});
+	}, [getDoc]);
 
 	const isValidEmail = (input) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -181,28 +186,59 @@ export const AuthProvider = ({ children }) => {
 		}
 	}
 
+	const updateCurrentUser = async (inputRefs) => {
+		await updateDoc(doc(db, 'users', currentUser.uid), {
+			username: inputRefs.username.current.value,
+			email: inputRefs.email.current.value,
+			password: inputRefs.password.current.value,
+			name: {
+				first: inputRefs.name.first.current.value,
+				last: inputRefs.name.last.current.value,
+			},
+			address: {
+				street: inputRefs.address.street.current.value,
+				city: inputRefs.address.city.current.value,
+				state: inputRefs.address.state.current.value,
+				zip: inputRefs.address.zip.current.value,
+			},
+			dob: inputRefs.dob.current.value,
+			phoneNumber: inputRefs.phone.current.value,
+			bio: inputRefs.bio.current.value,
+		}, { merge: true })
+			.then(result => {
+				authStateListener();
 
-	const authStateListener = () => {
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				console.log('user signed in : ', user.uid);
-				const userData = getUserData(user.uid);
-				userData.then(data => { setCurrentUser(data) })
+			})
+			.catch(error => {
+				console.error(error);
+			})
 
-			} else {
-				console.log('user is signed out');
-				setCurrentUser(null)
-			}
-		})
 	}
 
+	const authStateListener = useCallback(() => {
+		return onAuthStateChanged(auth, (user) => {
+			if (user) {
+				const userData = getUserData(user.uid);
+				userData.then((data) => {
+					setCurrentUser(data);
+				});
+			} else {
+				setCurrentUser(null);
+			}
+		});
+	}, [getUserData, setCurrentUser]);
 
 	useEffect(() => {
 		const unsubscribe = authStateListener();
-	}, []);
+
+		return () => {
+			unsubscribe();
+		};
+	}, [authStateListener]);
 
 	const value = {
 		currentUser,
+		updateCurrentUser,
 		login,
 		logout,
 		signup,

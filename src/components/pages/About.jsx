@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react'
+import { Link } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../services/Firebase';
@@ -21,6 +22,7 @@ const About = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const msgRef = useRef();
+  const bottomRef = useRef();
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
@@ -40,26 +42,35 @@ const About = () => {
     }
   }
 
+  const scrollToBottom = () => {
+    bottomRef.current.scrollIntoView(
+      {
+        behavior: 'smooth',
+      }
+    )
+  }
+
   return (
     <div className='flex flex-col items-center '>
 
       <div className='flex justify-between items-center h-10 w-full bg-gradient-to-tl from-green-900 via-green-700 to-green-800 mb-2 px-4'>
         <div className='font-bold'>WHOAMI</div>
         <div>
-          <a className='px-1 hover:text-red-900' href="#about-contact-send-btn">Contact</a>
-          <a className='px-2 hover:text-red-900' href="">Download</a>
+          <span className='px-1 hover:text-red-900' onClick={scrollToBottom}>Contact</span>
+          <span className='px-2 hover:text-red-900' >Download</span>
         </div>
       </div>
       <div className='w-full flex flex-col-reverse md:flex-row items-center md:items-stretch  lg:w-[80%]' >
 
         <div className='flex p-4 flex-col w-[95%] md:w-[40%] border border-blue-800 shadow-md mt-6 md:mt-0 shadow-blue-800 '>
           <div className='text-xl font-bold text-blue-700'>Contact Me..</div>
+          <div className='text-sm py-2 text-blue-700' >For signed in users, email and name will be autofilled!</div>
           <div>
             <form onSubmit={handleSubmit} >
             <input ref={nameRef} defaultValue={currentUser && currentUser.name.first +' '+ currentUser.name.last} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
             <input ref={emailRef} defaultValue={ currentUser && currentUser.email} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
             <textarea ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
-            <div className='w-full flex justify-end'><button id='about-contact-send-btn' className='bg-green-700 hover:bg-green-800 my-2 p-1 focus:outline-none w-20 text-green-200' >Send</button></div>
+            <div className='w-full flex justify-end'><button ref={bottomRef} className='bg-green-700 hover:bg-green-800 my-2 p-1 focus:outline-none w-20 text-green-200' >Send</button></div>
             </form>
           </div>
           <div className='mt-4 flex flex-wrap'>

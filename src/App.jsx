@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { SignupForm, LoginForm} from './contexts/Auth';
+import { SignIn, SignUp} from './components/auth';
 
 // Components 
-import HelmetWrapper from "./components/utils/HelmetWrapper";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import AppRoutes from "./components/routes/AppRoutes";
+
 
 function App() {
 
@@ -51,12 +51,11 @@ function App() {
 
   return (
     <div id="html">
-      <HelmetWrapper />
       <Navbar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
       <Sidebar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
       <div className="pt-12 md:pt-16" >
-        {showLoginForm && <LoginForm handleLoginForm={handleLoginForm} handleLoginSignup={handleLoginSignup} />}
-        {showSignupForm && <SignupForm handleSignupForm={handleSignupForm} handleLoginSignup={handleLoginSignup} />}
+        {showLoginForm && <SignIn handleLoginForm={handleLoginForm} handleLoginSignup={handleLoginSignup} />}
+        {showSignupForm && <SignUp handleSignupForm={handleSignupForm} handleLoginSignup={handleLoginSignup} />}
         <AppRoutes />
       </div>
     </div>

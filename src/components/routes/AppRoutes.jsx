@@ -4,10 +4,9 @@ import { Routes, Route } from 'react-router-dom'
 // Components 
 
 import Home from "../pages/Home";
-import Projects from "../pages/Projects";
 import About from "../pages/About";
 import Dashboard from "../pages/Dashboard";
-import {BlogList, BlogBar, BlogCreate, BlogDelete, BlogUpdate, BlogDetails} from '../blog'
+import {BlogList, BlogCreate, BlogDelete, BlogUpdate, BlogDetails} from '../blog'
 import {ProjectBlogCreate, ProjectBlogDelete, ProjectBlogDetails, ProjectBlogList, ProjectBlogUpdate} from '../projectblog';
 import NotFound from "../pages/NotFound";
 

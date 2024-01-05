@@ -38,16 +38,15 @@ const ProjectBlogList = () => {
         <div className='mx-2' >
           <div className=' text-xl'>My GitHub Projects</div>
           <div className='text-sm text-black dark:text-green-100'>These projects will open on github for now, though, in future, i plan to add a kind of blog where i will describe each of these projects in detail.</div>
-          <ul className='flex flex-wrap py-2' >
-
+          <ul className='flex flex-wrap justify-evenly w-full  py-2' >
             {blogs ? blogs.map((blog) => (
-              <Link key={blog.id} className='w-full' to={`details/${blog.id}`}>
-                <li className='w-full lg:w-[29%]  border rounded-b border-green-500 my-2 lg:mx-2 shadow-md shadow-green-700' >
+              <Link key={blog.id} className='w-full md:w-[30%] ' to={`details/${blog.id}`}>
+                <div className='w-full border rounded-b border-green-500 my-2 lg:mx-2 shadow-md shadow-green-700' >
                   <div className='bg-green-700 dark:bg-red-900 w-full px-2 text-white py-1'>{blog.title}</div>
                   <div className='flex w-full justify-end pr-2' >
                     {blog.languages.map((language)=>(<span className=' m-1 text-sm text-red-950 dark:text-green-400'>{language}</span>))}
                   </div> 
-                </li>          
+                </div>          
               </Link>
             )) : ' no blogs found '}
 
