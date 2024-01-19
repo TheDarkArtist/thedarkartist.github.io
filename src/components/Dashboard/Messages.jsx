@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
-import Search from './Search';
+import {useAuth} from '../../contexts/AuthContext';
+import Search from '../utils/Search';
 import { db } from '../../services/Firebase';
 
 const Messages = () => {
   const [messages, setMessages] = useState(null);
-
+  const {currentUser} = useAuth();
   const messagesHeader = ['No.', 'Date', 'Message', 'Name', 'Email']
 
   useEffect(() => {
@@ -18,7 +19,6 @@ const Messages = () => {
           list.push({ ...doc.data() })
         })
         setMessages(list);
-        console.log(list)
       } catch (error) {
         console.log(error)
       }
@@ -27,8 +27,18 @@ const Messages = () => {
     fetchMessages();
   }, [])
 
+  if(currentUser.access != 'root'){
+    return(
+    <div className='h-96 flex justify-center items-center' >
+      <span className='md:ctext-2xl'>You Are Not Authorized To Access This Area.</span>
+    </div>
+    )
+  }
+
+
   return (
-    <div className='min-h-[80vh] mt-10 w-full ' >
+     <div className='min-h-[80vh] mt-10 w-full ' >
+
       <div className='w-full flex justify-center py-4'><Search /></div>
 
       <div className='w-full text-sm md:text-lg flex flex-col items-center justify-center my-10' >

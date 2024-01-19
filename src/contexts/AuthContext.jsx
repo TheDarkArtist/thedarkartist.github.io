@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
 						alert('logged in successfully');
 						const userData = await getUserData(userCredentials.user.uid);
 						setCurrentUser(userData)
-						console.log(currentUser)
 
 					})
 					.catch((error) => {
@@ -32,7 +31,6 @@ export const AuthProvider = ({ children }) => {
 						alert('logged in successfully');
 						const userData = await getUserData(userCredentials.user.uid);
 						setCurrentUser(userData)
-						console.log(currentUser)
 
 					})
 					.catch((error) => {
@@ -58,7 +56,6 @@ export const AuthProvider = ({ children }) => {
 				try {
 					const q = query(collection(db, 'users'), where('username', '==', username))
 					const querySnapshot = await getDocs(q)
-					console.log(querySnapshot.size)
 					return querySnapshot.empty
 				} catch (error) {
 					console.error('error checking uniqueness');
@@ -96,6 +93,7 @@ export const AuthProvider = ({ children }) => {
 							state: '',
 							zip: '',
 						},
+						access: 'user',
 					});
 					alert('Account created !');
 					verifyEmail(result.user);

@@ -33,7 +33,7 @@ const RightPannel = ({ selectedComponent }) => {
     Users,
   }
   const SelectedComponent = componentMap[selectedComponent]
-  return <div className='w-full min-h-full overflow-hidden bg-black md:ml-60'>
+  return <div className='w-full min-h-[100%] overflow-hidden bg-black md:ml-60'>
     {SelectedComponent ? <SelectedComponent /> : <Profile />}
   </div>
 }
@@ -72,7 +72,7 @@ const Dashboard = () => {
         <div className='font-light text-center text-white w-full' >COMMAND CENTER</div>
         <div className='font-light text-white'>{currentUser && currentUser.username}</div>
       </div>
-      { currentUser ? <div className='flex w-full'>
+      { currentUser ? <div className='flex w-full min-h-[100vh]'>
         <Sidebar handleSidebar={handleSidebar} onItemClick={handleItemClick} />
         <RightPannel selectedComponent={selectedComponent} />
       </div> : <div className="flex min-h-[86vh] w-full justify-center items-center">You need to login first!</div>}

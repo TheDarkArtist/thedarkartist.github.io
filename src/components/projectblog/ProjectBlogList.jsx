@@ -4,6 +4,7 @@ import { db } from '../../services/Firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
 import BlogBar from './ProjectBlogBar';
+import Search from '../utils/Search';
 import { Link } from 'react-router-dom';
 import ProjectBlogBar from './ProjectBlogBar';
 
@@ -34,13 +35,14 @@ const ProjectBlogList = () => {
   return (
     <>
       <BlogBar />
+      <div className='py-6 w-full flex justify-center' ><Search /></div>
       <div className='m-1' >
         <div className='mx-2' >
-          <div className=' text-xl'>My GitHub Projects</div>
-          <div className='text-sm text-black dark:text-green-100'>These projects will open on github for now, though, in future, i plan to add a kind of blog where i will describe each of these projects in detail.</div>
-          <ul className='flex flex-wrap justify-evenly w-full  py-2' >
+          <div className=' text-xl md:px-8'>My GitHub Projects</div>
+          <div className='text-sm text-black dark:text-green-100 md:px-8'>These projects will open on github for now, though, in future, i plan to add a kind of blog where i will describe each of these projects in detail with comment section.</div>
+          <ul className='flex flex-wrap justify-start w-full  py-2' >
             {blogs ? blogs.map((blog) => (
-              <Link key={blog.id} className='w-full md:w-[30%] ' to={`details/${blog.id}`}>
+              <Link key={blog.id} className='w-full md:mx-6 my-2 md:w-[30%] ' to={`details/${blog.id}`}>
                 <div className='w-full border rounded-b border-green-500 my-2 lg:mx-2 shadow-md shadow-green-700' >
                   <div className='bg-green-700 dark:bg-red-900 w-full px-2 text-white py-1'>{blog.title}</div>
                   <div className='flex w-full justify-end pr-2' >

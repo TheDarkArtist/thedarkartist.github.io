@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { SignIn, SignUp} from './components/auth';
+import { SignIn, SignUp } from './components/auth';
 
 // Components 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import AppRoutes from "./components/routes/AppRoutes";
+import Message from "./components/utils/Message";
 
 
 function App() {
@@ -53,11 +54,13 @@ function App() {
     <div id="html">
       <Navbar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
       <Sidebar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
-      <div className="pt-12 md:pt-16" >
+      <div className="pt-12 min-h-[100vh] md:pt-16" >
+        <Message msg={"Under Development!"} />
         {showLoginForm && <SignIn handleLoginForm={handleLoginForm} handleLoginSignup={handleLoginSignup} />}
         {showSignupForm && <SignUp handleSignupForm={handleSignupForm} handleLoginSignup={handleLoginSignup} />}
         <AppRoutes />
       </div>
+
     </div>
   );
 }

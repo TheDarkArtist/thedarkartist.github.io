@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
-import Search from './Search';
+import {useAuth} from '../../contexts/AuthContext';
+import Search from '../utils/Search';
 import { db } from '../../services/Firebase';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState(null);
-
+  const {currentUser} = useAuth();
   const blogsHeader = [<input type="checkbox" />, 'No.', 'Title', 'Author', 'Action']
 
   useEffect(() => {
@@ -18,7 +19,6 @@ const Blog = () => {
           list.push({ id: doc.id, ...doc.data() })
         })
         setBlogs(list);
-        console.log(list)
       } catch (error) {
         console.log(error)
       }
@@ -26,6 +26,18 @@ const Blog = () => {
 
     fetchBlogs();
   }, [Blog])
+
+
+
+
+  if(currentUser.access != 'root'){
+    return(
+    <div className='h-96 flex justify-center items-center' >
+      <span className='md:text-2xl'>You Are Not Authorized To Access This Area.</span>
+    </div>
+    )
+  }
+
 
   return (
     <div className='min-h-[80vh] mt-10 w-full ' >

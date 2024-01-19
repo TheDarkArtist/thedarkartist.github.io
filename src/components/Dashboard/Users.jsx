@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
-import Search from './Search';
+import { useAuth } from '../../contexts/AuthContext';
+import Search from '../utils/Search';
 import { db } from '../../services/Firebase';
 
 const Users = () => {
   const [users, setUsers] = useState(null);
-
-  const usersHeader = [<input type="checkbox" />, 'No.', 'Name', 'Username', 'Email', 'Action']
+  const {currentUser} = useAuth();
+  const usersHeader = [<input type="checkbox" />, 'No.', 'Name', 'Username', 'Access', 'Email', 'Action']
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -25,6 +26,16 @@ const Users = () => {
 
     fetchUsers();
   }, [])
+
+
+if(currentUser.access != 'root'){
+  return(
+    <div className='h-96 flex justify-center items-center' >
+        <span className='md:text-2xl' >You Are Not Authorized To Access This Area</span>
+      </div>
+  )
+  }
+
 
   return (
     <div className='min-h-[80vh] mt-10 w-full ' >
@@ -57,6 +68,7 @@ const Users = () => {
                     <td className='p-2 border border-green-900 ' >{index}</td>
                     <td className='p-2 border border-green-900 ' >{user.name.first + ' ' + user.name.last}</td>
                     <td className='p-2 border border-green-900 ' >{user.username}</td>
+                    <td className='p-2 border border-green-900 ' >{user.access}</td>
                     <td className='p-2 border border-green-900 ' >{user.email}</td>
                     <td className='p-2 border border-green-900 underline text-blue-500' >
                       <span className='mx-2 cursor-pointer'>view</span>
