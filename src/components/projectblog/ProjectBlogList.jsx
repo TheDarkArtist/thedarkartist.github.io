@@ -35,7 +35,7 @@ const ProjectBlogList = () => {
   return (
     <>
       <BlogBar />
-      <div className='py-6 w-full flex justify-center' ><Search /></div>
+      <div className='py-6 w-full flex justify-center' ><Search parameter={'projects'} searchField='title' setResults={setBlogs} List={blogs} /></div>
       <div className='m-1' >
         <div className='mx-2' >
           <div className=' text-xl md:px-8'>My GitHub Projects</div>

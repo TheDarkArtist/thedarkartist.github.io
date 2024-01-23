@@ -18,7 +18,7 @@ const Projects = () => {
         querySnapshot.forEach(doc => {
           list.push({ id: doc.id, ...doc.data() })
         })
-        setProjects(list);
+       setProjects(list);
       } catch (error) {
         console.log(error)
       }
@@ -41,7 +41,7 @@ const Projects = () => {
 
   return (
     <div className='min-h-[80vh] mt-10 w-full ' >
-      <div className='w-full flex justify-center py-4'><Search /></div>
+      <div className='w-full flex justify-center py-4'><Search parameter={'projects'} searchField={'title'} setResults={setProjects} /></div>
 
       <div className='w-full text-sm md:text-lg flex flex-col items-center justify-center my-10' >
 

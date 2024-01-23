@@ -62,14 +62,14 @@ const About = () => {
       </div>
       <div className='w-full flex flex-col-reverse md:flex-row items-center md:items-stretch  lg:w-[80%]' >
 
-        <div className='flex p-4 flex-col w-[95%] md:w-[40%] border border-blue-800 shadow-md mt-6 md:mt-0 shadow-blue-800 '>
+        <div className='flex p-4 flex-col w-[95%] md:w-[40%] border-blue-800 shadow-md mt-6 md:mt-0 shadow-blue-800 '>
           <div className='text-xl font-bold text-blue-700'>Contact Me..</div>
           <div className='text-sm py-2 text-blue-700' >For signed in users, email and name will be autofilled!</div>
           <div>
             <form onSubmit={handleSubmit} >
             <input ref={nameRef} defaultValue={currentUser && currentUser.name.first +' '+ currentUser.name.last} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
             <input ref={emailRef} defaultValue={ currentUser && currentUser.email} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
-            <textarea ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
+            <textarea ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 line-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
             <div className='w-full flex justify-end'><button ref={bottomRef} className='bg-green-700 hover:bg-green-800 my-2 p-1 focus:outline-none w-20 text-green-200' >Send</button></div>
             </form>
           </div>
@@ -83,13 +83,13 @@ const About = () => {
 
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-900 to-cyan-900 flex items-center font-bold text-blue-200'>Personal Details</div>
-            <div className='p-2 text-sm bg-gray-300 dark:bg-transparent dark:text-stone-300'>
-              <div>Kushagra Sharma</div>
-              <div>Ashirwad Garden, Rest House Road, Rajgarh, Alwar</div>
-              <div>TheDarkArtist@proton.me | +917426072284</div>
-              <div>June 2, 2005</div>
-              <div>thedarkartist.github.io</div>
-              <div>LinkedIn TheDarkArtist</div>
+            <div className='p-2 flex flex-col text-sm bg-gray-300 dark:bg-transparent dark:text-stone-300'>
+              <span>Kushagra Sharma</span>
+              <span>Ashirwad Garden, Rest House Road, Rajgarh, Alwar</span>
+              <span> <a href='mailto:TheDarkArtist@proton.me' >  TheDarkArtist@proton.me </a> | +917426072284</span>
+              <span>June 2, 2005</span>
+              <span>thedarkartist.github.io</span>
+              <span>LinkedIn TheDarkArtist</span>
             </div>
           </div>
 

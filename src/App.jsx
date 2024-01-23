@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import AppRoutes from "./components/routes/AppRoutes";
 import Message from "./components/utils/Message";
+import Alert from "./components/utils/Alert";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
 
   return (
     <div id="html">
+      <Alert visible={true} msg={'Account Created!'} />
       <Navbar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
       <Sidebar handleSidebar={handleSidebar} handleLoginForm={handleLoginForm} />
       <div className="pt-12 min-h-[100vh] md:pt-16" >

@@ -4,6 +4,7 @@ import { GoX } from "react-icons/go";
 import profile from "../assets/profile.png"
 import { Link } from 'react-router-dom';
 import DarkMode from './utils/DarkMode';
+import {AiOutlineUser} from 'react-icons/ai';
 
 
 const sbar = ({ handleSidebar, handleLoginForm }) => {
@@ -27,14 +28,12 @@ const sbar = ({ handleSidebar, handleLoginForm }) => {
 
       <div id='sidebar' className=' min-h-[100%] dark:bg-zinc-950 dark:text-white bg-stone-300 w-0  transition-all duration-100 ease-in-out overflow-hidden fixed top-0 right-0 z-40 flex flex-col justify-top align-bottom shadow-l shadow-lg shadow-neutral-700 '>
         <div className="bg-[#1F1F1F] text-white shadow shadow-neutral-700 mb-2 h-20 flex items-center justify-between py-2 ">
-          <div className="flex">
-            <img
-              className="h-10 w-12 mx-1"
-              src={profile}
-              alt=""
-            />
+          <div className="flex items-center">
+            <div className='border w-14 h-14 mx-2 flex justify-center items-center rounded-[50%] p-1' >
+            <AiOutlineUser className='h-14 w-14' />
+            </div>
             <div>
-              <div className=" text-sm">{currentUser && currentUser.name.first} {currentUser && currentUser.name.last}</div>
+              <div className="font-bold">{currentUser && currentUser.name.first} {currentUser && currentUser.name.last}</div>
               <div className="text-sm">{currentUser && currentUser.username}</div>
             </div>
           </div>

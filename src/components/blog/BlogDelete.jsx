@@ -21,7 +21,7 @@ const BlogDelete = () => {
 
   return (
     <>
-      <div className='text-2xl px-4 ' >Delete</div>
+      <div className='text-2xl px-4 mt-6' >Delete</div>
       <div className='px-4 py-2'>Do you really with to delete the blog</div>
       <div className='flex justify-center'> 
         <button onClick={handleDelete} className="bg-green-700 px-4 py-1 m-1">Yes</button>

@@ -24,7 +24,7 @@ const SignUp = ({ handleSignupForm, handleLoginSignup }) => {
         };
 
         return <>
-                <div onClick={handleSignupForm} className="h-[100vh] absolute top-0  w-full backdrop-blur-sm flex justify-center shadow-inner shadow-lg shadow-orange-900"></div>
+                <div onClick={handleSignupForm} className="h-[100%] fixed top-0 z-40  w-full backdrop-blur-sm flex justify-center shadow-lg shadow-orange-900"></div>
                 <div className="w-full h-0 z-40 flex justify-center" >
                         <div className="flex fixed flex-col justify-start items-stretch bg-blue-950 p-2 min-h-[35rem] md:min-h-[30rem] z-40 w-[80%] md:w-[20rem] top-40 border border-red-500 shadow shadow-orange-900 rounded-md">
                                 <div className="w-full mb-2 text-center text-blue-300 text-2xl font-bold">Sign Up</div>
@@ -37,7 +37,7 @@ const SignUp = ({ handleSignupForm, handleLoginSignup }) => {
                                         <button className="bg-blue-800 my-2 px-2 py-1 w-[90%]" >Sign Up</button>
                                 </form>
                                 <div className="flex w-full my-2 justify-evenly" >
-                                        <div onClick={handleLoginSignup} className="cursor-pointer flex w-full justify-center text-blue-400 hover:text-blue-500" >Login</div>
+                                        <div onClick={handleLoginSignup} className="cursor-pointer flex w-full justify-center text-blue-400 hover:text-blue-500" >Sign In</div>
 
                                 </div>
                         </div>

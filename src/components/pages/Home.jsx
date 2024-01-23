@@ -3,10 +3,9 @@ import { HiAcademicCap } from "react-icons/hi";
 const Home = () => {
   return (
     <div className="m-2">
-      <HiAcademicCap className="h-10 w-10" />
-      <span>
-      <p>Hey,</p>
-      <p>This is kushagra</p> 
+      <span className="font-[caveat]" >
+      <p className="text-6xl py-1" >Hey,</p>
+      <p className="text-5xl py-1">This is kushagra</p> 
       </span>
    </div>
   );
