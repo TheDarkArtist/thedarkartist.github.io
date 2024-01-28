@@ -39,6 +39,9 @@ const BlogUpdate = () => {
     navigate(`/blog/details/${id}`)
   }
 
+  const handleChange = (value) =>{
+    setEditorValue(value);
+  }
   return (
     <>
     <BlogBar />
@@ -47,7 +50,7 @@ const BlogUpdate = () => {
 
     <form className='flex flex-col w-full p-2' onSubmit={handleSubmit}>
       <input defaultValue={''} className='dark:bg-black bg-zinc-100 m-1 py-1 px-2 border border-green-500 focus:outline-none' id='title' placeholder='Title' ref={titleRef} type="text" />
-      <textarea defaultValue={''} className='dark:bg-black bg-zinc-100 m-1 py-1 px-2 border border-green-500 focus:outline-none' id="body" placeholder='Body' cols="30" ref={bodyRef} rows="10"></textarea>
+      <textarea defaultValue={''} className='dark:bg-black bg-zinc-100 m-1 h-full py-1 px-2 border border-green-500 focus:outline-none' id="body" placeholder='Body' cols="30" ref={bodyRef} rows="25"></textarea>
       <span className='w-full flex justify-end' >
             <button className='bg-green-700 text-white px-2 m-1 py-1' >Update</button>
             <button onClick={handleCancle} className="bg-red-700 text-white px-2 m-1 py-1">Cancle</button>

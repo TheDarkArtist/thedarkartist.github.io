@@ -4,10 +4,11 @@ import { db } from '../../services/Firebase';
 import { useParams } from 'react-router-dom';
 
 import BlogBar from './ProjectBlogBar';
+import MarkdownRenderer from '../utils/MarkdownRenderer';
 
 const ProjectBlogDetails = () => {
   const [blog, setBlog] = useState([]);
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchBlog = async () => {
@@ -21,11 +22,13 @@ const ProjectBlogDetails = () => {
 
   return (
     <>
-    <BlogBar id={id} condition={true} />
-    <div className='p-2' >
-      <div className='text-[1.2rem]' >{blog.title}</div>
-      <div className='py-2' >{blog.body}</div>
-    </div>
+      <BlogBar id={id} condition={true} />
+      <div className='flex justify-center mt-6'>
+        <div className='p-4 w-full md:max-w-[60rem]' >
+          <div className='text-2xl font-bold' >{blog.title}</div>
+          <div className='py-2' ><MarkdownRenderer content={blog.body} /></div>
+        </div>
+      </div>
     </>
   )
 }

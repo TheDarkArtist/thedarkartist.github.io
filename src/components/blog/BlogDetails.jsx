@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../services/Firebase';
 import { useParams } from 'react-router-dom';
-import Markdown from 'react-markdown';
 
 import BlogBar from './BlogBar';
+import MarkdownRenderer from '../utils/MarkdownRenderer';
 
 const BlogDetails = () => {
   const [blog, setBlog] = useState([]);
@@ -23,9 +23,11 @@ const BlogDetails = () => {
   return (
     <>
       <BlogBar id={id} condition={true} />
-      <div className='p-2' >
-        <div className='text-2xl' >{blog.title}</div>
-        <div className='py-4' >{blog.body}</div>
+      <div className='flex justify-center' >
+      <div className='p-4 w-full md:max-w-[60rem]' >
+        <div className='text-2xl font-bold text-stone-200' >{blog.title}</div>
+        <div className='py-4 overflow-scroll'> <MarkdownRenderer content={blog.body} /> </div>
+      </div>
       </div>
     </>
   )
