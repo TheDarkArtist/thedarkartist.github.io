@@ -4,6 +4,10 @@ import gfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+const CustomH1 = ({ children }) => (
+  <h1 className='text-3xl py-1 font-bold' >{children}</h1>
+)
+
 const CustomH2 = ({ children }) => (
   <h2 className="text-2xl py-1 font-bold">{children}</h2>
 );
@@ -25,7 +29,7 @@ const CustomH6 = ({ children }) => (
 );
 
 const CustomParagraph = ({ children }) => (
-  <p className="leading-relaxed mb-4">{children}</p>
+  <span className="leading-relaxed mb-4">{children}</span>
 );
 
 const CustomEmphasis = ({ children }) => (
@@ -43,13 +47,11 @@ const CustomLink = ({ href, children }) => (
 )
 
 const CustomImage = ({ alt, src }) => (
-  <div className="my-4">
     <img
-      className="max-w-full rounded-lg shadow-md"
+      className="max-w-full my-4 rounded-md bg-blend-color-dodge shadow-md"
       src={src}
       alt={alt}
     />
-  </div>
 );
 
 const CustomBlockQuote = ({ children }) => (
@@ -95,6 +97,7 @@ const MarkdownRenderer = ({ content }) => {
   return (
     <ReactMarkdown
       components={{
+        h1: CustomH1,
         h2: CustomH2,
         h3: CustomH3,
         h4: CustomH4,
@@ -113,7 +116,6 @@ const MarkdownRenderer = ({ content }) => {
         th: CustomTableHeader,
       }}
       remarkPlugins={gfm}
-
     >
       {content}
     </ReactMarkdown>

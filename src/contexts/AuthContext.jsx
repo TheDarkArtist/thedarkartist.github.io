@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, sendEmailVerification, updatePassword, sendPasswordResetEmail, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { auth, db } from '../services/Firebase';
-import { collection, doc, getDoc, getDocs, query, setDoc,updateDoc, where } from 'firebase/firestore';
+import { collection, connectFirestoreEmulator, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
@@ -121,7 +121,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	const verifyEmail = (user) => {
-		sendEmailVerification(user)
+		user && sendEmailVerification(user)
 			.then(result => {
 				alert('Email Verification link Sent, please verify your email!')
 			})
@@ -169,7 +169,7 @@ export const AuthProvider = ({ children }) => {
 				console.error("Error getting document:", error);
 				return null;
 			});
-	}, [getDoc]);
+	}, []);
 
 	const isValidEmail = (input) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -177,39 +177,97 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	const getUserEmailByUsername = async (username) => {
-		const queerySnapshot = await getDocs(collection(db, 'users'), where('username', '==', username))
-		if (!queerySnapshot.empty) {
-			const userData = queerySnapshot.docs[0].data();
-			return userData.email;
+		try {
+			const q = query(collection(db, 'users'), where('username','==',username))
+			const querySnapshot = await getDocs(q)
+
+			if (!querySnapshot.empty) {
+				const userData = querySnapshot.docs[0].data();
+				return userData.email;
+			} else {
+				// Handle the case where no user with the given username is found
+				console.log(`No user found with the username: ${username}`);
+				return null; // or throw an error or handle it as per your application logic
+			}
+		} catch (error) {
+			console.error('Error getting user email by username:', error);
+			// Handle the error as needed
+			return null;
 		}
-	}
+	};
+
+
+
+	const isUsernameUnique = async (username) => {
+		try {
+			const q = query(collection(db, 'users'), where('username', '==', username));
+			const querySnapshot = await getDocs(q);
+
+			if (querySnapshot.empty) {
+				// Username is unique
+				return true;
+			}
+
+			const existingUser = querySnapshot.docs[0].data();
+			const existingUserId = existingUser.uid;
+
+			// Check if the existing user is the current user
+			return currentUser.uid === existingUserId;
+		} catch (error) {
+			console.error('Error checking username uniqueness:', error);
+			return false; // Handle the error as needed
+		}
+	};
+
 
 	const updateCurrentUser = async (inputRefs) => {
-		await updateDoc(doc(db, 'users', currentUser.uid), {
-			username: inputRefs.username.current.value,
-			email: inputRefs.email.current.value,
-			password: inputRefs.password.current.value,
-			name: {
-				first: inputRefs.name.first.current.value,
-				last: inputRefs.name.last.current.value,
-			},
-			address: {
-				street: inputRefs.address.street.current.value,
-				city: inputRefs.address.city.current.value,
-				state: inputRefs.address.state.current.value,
-				zip: inputRefs.address.zip.current.value,
-			},
-			dob: inputRefs.dob.current.value,
-			phoneNumber: inputRefs.phone.current.value,
-			bio: inputRefs.bio.current.value,
-		}, { merge: true })
-			.then(result => {
-				authStateListener();
 
-			})
-			.catch(error => {
-				console.error(error);
-			})
+		try {
+			const username = inputRefs.username.current.value;
+			const email = inputRefs.email.current.value
+			const password = inputRefs.password.current.value
+			const first = inputRefs.name.first.current.value
+			const last = inputRefs.name.last.current.value
+			const street = inputRefs.address.street.current.value
+			const city = inputRefs.address.city.current.value
+			const state = inputRefs.address.state.current.value
+			const zip = inputRefs.address.zip.current.value
+			const dob = inputRefs.dob.current.value
+			const phoneNumber = inputRefs.phone.current.value
+			const bio = inputRefs.bio.current.value
+
+
+			console.log(username)
+
+			if (await isUsernameUnique(username)) {
+				await updateDoc(doc(db, 'users', currentUser.uid), {
+					username: username,
+					email: email,
+					password: password,
+					name: {
+						first: first,
+						last: last,
+					},
+					address: {
+						street: street,
+						city: city,
+						state: state,
+						zip: zip,
+					},
+					dob: dob,
+					phoneNumber: phoneNumber,
+					bio: bio
+
+				}, { merge: true });
+
+				authStateListener();
+			} else {
+				console.log('Username is not unique');
+				alert('Username already exists. Please choose a different username.');
+			}
+		} catch (error) {
+			console.error('Error updating current user:', error);
+		}
 
 	}
 
