@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 
 import { useAuth } from '../../contexts/AuthContext';
 import Search from '../utils/Search';
@@ -25,7 +25,7 @@ const Projects = () => {
     }
 
     fetchProjects();
-  }, [])
+  }, [projects])
 
 
 
@@ -35,6 +35,10 @@ const Projects = () => {
       <span className='md:text-2xl'>You Are Not Authorized To Access This Area.</span>
     </div>
     )
+  }
+
+  const handleDelete = async (id) =>{
+    await deleteDoc(doc(db, 'projectBlog', id)) 
   }
 
 
@@ -70,9 +74,9 @@ const Projects = () => {
                     <td className='p-2 border border-green-900 ' >{index}</td>
                     <td className='p-2 border border-green-900 ' >{project.title}</td>
                     <td className='p-2 border text-right border-green-900 underline text-blue-500' >
-                      <span className='mx-2 cursor-pointer'>view</span>
-                      <span className='mx-2 cursor-pointer'>update</span>
-                      <span className='mx-2 cursor-pointer'>delete</span>
+                      <a href={`projects/details/${project.id}`}><span className='mx-2 cursor-pointer'>view</span></a>
+                      <a href={`projects/update/${project.id}`}><span className='mx-2 cursor-pointer'>update</span></a>
+                      <span onClick={()=>handleDelete(project.id)} className='mx-2 cursor-pointer'>delete</span>
                     </td>
                   </tr>
                 ]) : 'no projects'}
@@ -84,7 +88,7 @@ const Projects = () => {
 
       </div>
 
-    </div >
+    </div>
   )
 }
 

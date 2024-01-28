@@ -50,14 +50,22 @@ const About = () => {
     )
   }
 
+  const handleResumePrint = () =>{
+    var printContent = document.getElementById('resume').innerHTML
+    var originalContent = document.body.innerHTML;
+    document.body.innerHTML = printContent;
+     window.print()
+    document.body.innerHTML = originalContent;
+  }
+
   return (
     <div className='flex flex-col items-center '>
 
       <div className='flex justify-between items-center h-10 w-full bg-gradient-to-tl from-green-900 via-green-700 to-green-800 mb-2 px-4'>
         <div className='font-bold'>WHOAMI</div>
         <div>
-          <span className='px-1 hover:text-red-900' onClick={scrollToBottom}>Contact</span>
-          <span className='px-2 hover:text-red-900' >Download</span>
+          <span className='px-1 cursor-pointer hover:text-red-900' onClick={scrollToBottom}>Contact</span>
+          <span onClick={handleResumePrint} className='px-2 cursor-pointer hover:text-red-900' >Download</span>
         </div>
       </div>
       <div className='w-full flex flex-col-reverse md:flex-row items-center md:items-stretch  lg:w-[80%]' >
@@ -79,7 +87,7 @@ const About = () => {
 
         </div>
 
-        <div className='flex flex-col border-blue-400 w-full md:w-[60%] rounded shadow-lg shadow-blue-950' >
+        <div id='resume' className='flex flex-col border-blue-400 w-full md:w-[60%] rounded shadow-lg shadow-blue-950' >
 
           <div className='border border-blue-800 rounded-b m-2'>
             <div className='w-full h-7 bg-gradient-to-tl px-4 from-cyan-900 via-blue-900 to-cyan-900 flex items-center font-bold text-blue-200'>Personal Details</div>

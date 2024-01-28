@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 
 import {useAuth} from '../../contexts/AuthContext';
 import Search from '../utils/Search';
 import { db } from '../../services/Firebase';
+import { Link } from 'react-router-dom';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState(null);
@@ -25,7 +26,7 @@ const Blog = () => {
     }
 
     fetchBlogs();
-  }, [Blog])
+  }, [Blog, blogs])
 
 
 
@@ -36,6 +37,10 @@ const Blog = () => {
       <span className='md:text-2xl'>You Are Not Authorized To Access This Area.</span>
     </div>
     )
+  }
+
+  const handleDelete = async (id) =>{
+      await deleteDoc(doc(db, 'blog', id))
   }
 
 
@@ -71,9 +76,9 @@ const Blog = () => {
                     <td className='p-2 border border-green-900 ' >{blog.title}</td>
                     <td className='p-2 border border-green-900 ' >undefined</td>
                     <td className='p-2 border border-green-900 underline text-blue-500' >
-                      <span className='mx-2 cursor-pointer'>view</span>
-                      <span className='mx-2 cursor-pointer'>update</span>
-                      <span className='mx-2 cursor-pointer'>delete</span>
+                      <Link to={`/blog/details/${blog.id}`}><span className='mx-2 cursor-pointer'>view</span></Link>
+                      <Link to={`/blog/update/${blog.id}`}><span className='mx-2 cursor-pointer'>update</span></Link>
+                      <span onClick={()=>handleDelete(blog.id)} className='mx-2 cursor-pointer'>delete</span>
                     </td>
                   </tr>
                 ]) : 'no blogs'}

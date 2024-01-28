@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import tdaIcon from "../assets/tda.png";
 import { AiOutlineUser } from "react-icons/ai";
 
 import {useAuth} from '../contexts/AuthContext';
 
+
 const Navbar = ({handleSidebar, handleLoginForm}) => {
   const {currentUser} = useAuth();
 
-  return (
-    <div className="h-12 md:h-16 flex justify-between items-center fixed px-1 md:px-2 bg-gradient-to-b text-white from-red-950 via-red-950 to-black shadow-b shadow-zinc-900 shadow-sm w-full z-30">
+  return ( 
+    <div className="h-12 md:h-14 lg:h-14 flex justify-between items-center fixed border-b border-stone-500 px-1 md:px-2 bg-gradient-to-b text-white from-red-950 via-red-950 to-black shadow-b shadow-zinc-900 shadow-sm w-full z-30">
       <div className="hover:shadow-blue-500 flex justify-center items-center">
         <div className="text-xl mx-1  ">TheDarkArtist</div>
       </div>

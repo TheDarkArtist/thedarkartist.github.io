@@ -7,7 +7,7 @@ import { db } from '../../services/Firebase';
 
 const Users = () => {
   const [users, setUsers] = useState(null);
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const usersHeader = [<input type="checkbox" />, 'No.', 'Name', 'Username', 'Access', 'Email', 'Action']
 
   useEffect(() => {
@@ -28,13 +28,14 @@ const Users = () => {
   }, [])
 
 
-if(currentUser.access != 'root'){
-  return(
-    <div className='h-96 flex justify-center items-center' >
+  if (currentUser.access != 'root') {
+    return (
+      <div className='h-96 flex justify-center items-center' >
         <span className='md:text-2xl' >You Are Not Authorized To Access This Area</span>
       </div>
-  )
+    )
   }
+
 
 
   return (
