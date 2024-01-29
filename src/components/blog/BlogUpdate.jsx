@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import {doc, getDoc, updateDoc } from 'firebase/firestore';
+import {useAlertContext} from '../../contexts/AlertContext';
 
 import BlogBar from './BlogBar';
 import {db} from '../../services/Firebase';
@@ -12,6 +13,7 @@ const BlogUpdate = () => {
   const {id} = useParams();
   const navigate = useNavigate();
   const docRef = doc(db, 'blog', id);
+  const {alert, showAlert} = useAlertContext();
 
 
   useEffect(()=>{
@@ -23,7 +25,7 @@ const BlogUpdate = () => {
 
     handleDefaultData();
     
-  },[])
+  })
 
   const handleSubmit = async (e) =>{ 
     e.preventDefault();
@@ -32,7 +34,7 @@ const BlogUpdate = () => {
       title: titleRef.current.value,
       body: bodyRef.current.value,
     })
-
+    showAlert('Blog Updated!')
   }
 
   const handleCancle = () =>{

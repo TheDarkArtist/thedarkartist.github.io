@@ -27,7 +27,7 @@ const EditProfile = ({ setEditProfile }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     updateCurrentUser(inputRefs)
 
     setEditProfile(false)

@@ -8,42 +8,33 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null);
-
 	const login = async (identifier, password) => {
 		try {
 			if (isValidEmail(identifier)) {
 				signInWithEmailAndPassword(auth, identifier, password)
 					.then(async (userCredentials) => {
-						alert('logged in successfully');
 						const userData = await getUserData(userCredentials.user.uid);
 						setCurrentUser(userData)
 
 					})
 					.catch((error) => {
 						if (error.code == 'auth/invalid-credential')
-							alert('Invalid Credentials')
-						console.error('Login Error: ', error);
+							console.error('Login Error: ', error);
 					})
 			} else {
 				const email = await getUserEmailByUsername(identifier);
 				signInWithEmailAndPassword(auth, email, password)
 					.then(async (userCredentials) => {
-						alert('logged in successfully');
 						const userData = await getUserData(userCredentials.user.uid);
 						setCurrentUser(userData)
 
 					})
 					.catch((error) => {
 						if (error.code == 'auth/invalid-credential')
-							alert('Invalid Credentials')
-						console.error('Login Error: ', error);
+							console.error('Login Error: ', error);
 					})
 
 			}
-
-
-
-
 		} catch (error) {
 			console.error(error);
 		}
@@ -68,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 
 
 			if (!isUnique) {
-				alert(' username already exists!')
+				console.log(' username already exists!')
 				return
 			}
 
@@ -101,7 +92,7 @@ export const AuthProvider = ({ children }) => {
 				})
 				.catch(error => {
 					if (error.code == 'auth/email-already-in-use')
-						alert('Email Already In Use, Continue to Login!')
+						console.log('Email Already In Use, Continue to Login!')
 					console.error(error);
 				})
 		}
@@ -113,7 +104,7 @@ export const AuthProvider = ({ children }) => {
 	const logout = () => {
 		signOut(auth)
 			.then(result => {
-				alert('logged out')
+				console.log('logged out')
 			})
 			.catch(error => {
 				console.error(error);
@@ -123,7 +114,7 @@ export const AuthProvider = ({ children }) => {
 	const verifyEmail = (user) => {
 		user && sendEmailVerification(user)
 			.then(result => {
-				alert('Email Verification link Sent, please verify your email!')
+				console.log('Email Verification link Sent, please verify your email!')
 			})
 			.catch(error => {
 				console.error(error);
@@ -133,23 +124,41 @@ export const AuthProvider = ({ children }) => {
 	const updatePassword = (email) => {
 		sendPasswordResetEmail(auth, email)
 			.then(result => {
-				alert('password rest link sent on your email');
+				console.log('password rest link sent on your email');
 			})
 			.catch(error => {
 				console.error(error);
 			});
 	}
 
-	const forgotPassword = (email) => {
-		sendPasswordResetEmail(auth, email)
-			.then(result => {
-				alert('password reset link sent, check your email!');
-			})
-			.catch(error => {
-				if (error.code == 'auth/missing-email')
-					alert('Please enter email First');
-				console.error(error);
-			})
+	const forgotPassword = async (email) => {
+		try {
+			if (isValidEmail(identifier)) {
+				sendPasswordResetEmail(auth, identifier)
+					.then( result => {
+						console.log('Password Email Link sent!')
+
+					})
+					.catch((error) => {
+						if (error.code == 'auth/missing-email')
+							console.error('Login Error: ', error);
+					})
+			} else {
+				const email = await getUserEmailByUsername(identifier);
+				sendPasswordResetEmail(auth, email)
+					.then( result => {
+						console.log('Password email link sent!')
+					})
+					.catch((error) => {
+						if (error.code == 'auth/missing-email')
+							console.error('Login Error: ', error);
+					})
+
+			}
+		} catch (error) {
+			console.error(error);
+		}
+
 	}
 
 
@@ -178,7 +187,7 @@ export const AuthProvider = ({ children }) => {
 
 	const getUserEmailByUsername = async (username) => {
 		try {
-			const q = query(collection(db, 'users'), where('username','==',username))
+			const q = query(collection(db, 'users'), where('username', '==', username))
 			const querySnapshot = await getDocs(q)
 
 			if (!querySnapshot.empty) {
@@ -204,18 +213,16 @@ export const AuthProvider = ({ children }) => {
 			const querySnapshot = await getDocs(q);
 
 			if (querySnapshot.empty) {
-				// Username is unique
 				return true;
 			}
 
 			const existingUser = querySnapshot.docs[0].data();
 			const existingUserId = existingUser.uid;
 
-			// Check if the existing user is the current user
 			return currentUser.uid === existingUserId;
 		} catch (error) {
 			console.error('Error checking username uniqueness:', error);
-			return false; // Handle the error as needed
+			return false;
 		}
 	};
 
@@ -263,7 +270,7 @@ export const AuthProvider = ({ children }) => {
 				authStateListener();
 			} else {
 				console.log('Username is not unique');
-				alert('Username already exists. Please choose a different username.');
+				console.log('Username already exists. Please choose a different username.');
 			}
 		} catch (error) {
 			console.error('Error updating current user:', error);

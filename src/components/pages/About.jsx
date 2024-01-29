@@ -1,12 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react'
-import { Link } from 'react-router-dom';
+import {useEffect, useState, useRef} from 'react'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { useAlertContext } from '../../contexts/AlertContext';
+
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../services/Firebase';
+
 
 const About = () => {
 
   const {currentUser } = useAuth();
+  const {alert, showAlert} = useAlertContext();
 
   const skills = [
     ['Languages', 'Frameworks', 'Personal',],
@@ -36,10 +39,10 @@ const About = () => {
       nameRef.current.value = '';
       emailRef.current.value = '';
       msgRef.current.value = '';
-      alert('message sent!');
     }catch(error){
      console.log('Error on message submit ::==> ', error);  
     }
+    showAlert('Message Sent!');
   }
 
   const scrollToBottom = () => {
@@ -64,7 +67,7 @@ const About = () => {
       <div className='flex justify-between items-center h-10 w-full bg-gradient-to-tl from-green-900 via-green-700 to-green-800 mb-2 px-4'>
         <div className='font-bold'>WHOAMI</div>
         <div>
-          <span className='px-1 cursor-pointer hover:text-red-900' onClick={scrollToBottom}>Contact</span>
+          <span className='px-1 cursor-pointer hover:text-red-900 md:hidden' onClick={scrollToBottom}>Contact</span>
           <span onClick={handleResumePrint} className='px-2 cursor-pointer hover:text-red-900' >Download</span>
         </div>
       </div>
@@ -75,9 +78,9 @@ const About = () => {
           <div className='text-sm py-2 text-blue-700' >For signed in users, email and name will be autofilled!</div>
           <div>
             <form onSubmit={handleSubmit} >
-            <input ref={nameRef} defaultValue={currentUser && currentUser.name.first +' '+ currentUser.name.last} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
-            <input ref={emailRef} defaultValue={ currentUser && currentUser.email} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
-            <textarea ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 line-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
+            <input required ref={nameRef} defaultValue={currentUser && currentUser.name.first +' '+ currentUser.name.last} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
+            <input required ref={emailRef} defaultValue={ currentUser && currentUser.email} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
+            <textarea required ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 line-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
             <div className='w-full flex justify-end'><button ref={bottomRef} className='bg-green-700 hover:bg-green-800 my-2 p-1 focus:outline-none w-20 text-green-200' >Send</button></div>
             </form>
           </div>

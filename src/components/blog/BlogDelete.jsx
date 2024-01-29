@@ -1,5 +1,6 @@
 import React from 'react'
 import {deleteDoc, doc } from 'firebase/firestore';
+import {useAlertContext} from '../../contexts/AlertContext';
 
 import {db} from '../../services/Firebase';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,11 +9,13 @@ const BlogDelete = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+  const {alert, showAlert} = useAlertContext();
 
 
   const handleDelete = async () =>{ 
     await deleteDoc(doc(db, 'blog', id));  
     navigate('/blog');
+    showAlert('Blog Deleted!')
   }
 
   const handleNoClick = () => { 

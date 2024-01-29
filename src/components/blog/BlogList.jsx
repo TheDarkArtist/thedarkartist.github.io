@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { RotatingLines } from 'react-loader-spinner';
 
 import { db } from '../../services/Firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import {useLoadingContext} from '../../contexts/LoadingContext';
 
 import BlogBar from './BlogBar';
 import Search from '../utils/Search';
@@ -9,9 +11,11 @@ import { Link } from 'react-router-dom';
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
+  const {loading, showLoading, hideLoading}  = useLoadingContext();
 
   useEffect(() => {
     const fetchBlogs = async () => {
+      showLoading();
       let list = [];
       try {
         const querySnapshot = await getDocs(collection(db, 'blog'))
@@ -23,6 +27,7 @@ const BlogList = () => {
       catch (err) {
         console.log(err)
       }
+      hideLoading()
     }
 
 
@@ -33,6 +38,10 @@ const BlogList = () => {
   return (
     <>
       <BlogBar />
+
+      {loading ? (<div className='absolute flex w-full top-1/2 justify-center' ><RotatingLines height='40' width='40' strokeColor='red' /></div>) : (
+
+      <div>
       <div className='py-6 w-full flex justify-center' ><Search parameter={'blogs'} /></div>
       <div className='flex justify-center p-1 w-full' >
         <ul className='w-full p-1 md:w-[80%]'>
@@ -47,6 +56,8 @@ const BlogList = () => {
           )) : ' no blogs found '}
         </ul>
       </div>
+      </div>
+      )}
     </>
   )
 }

@@ -1,15 +1,16 @@
-import React, { useRef} from 'react'
-import {useAuth} from '../contexts/AuthContext';
 import { GoX } from "react-icons/go";
-import profile from "../assets/profile.png"
 import { Link } from 'react-router-dom';
-import DarkMode from './utils/DarkMode';
 import {AiOutlineUser} from 'react-icons/ai';
+import {useAlertContext} from '../contexts/AlertContext';
+
+import {useAuth} from '../contexts/AuthContext';
+import DarkMode from './utils/DarkMode';
 
 
 const sbar = ({ handleSidebar, handleLoginForm }) => {
 
   const {currentUser, logout} = useAuth();
+  const {showAlert} = useAlertContext();
 
   document.querySelectorAll('#sidebar-items span').forEach(li => {
     li.addEventListener('click', () => {
@@ -19,6 +20,7 @@ const sbar = ({ handleSidebar, handleLoginForm }) => {
 
   const handleLogout = () =>{
     logout();
+    showAlert('Signed Out!');
   }
 
   return (

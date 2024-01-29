@@ -3,12 +3,14 @@ import {db } from '../../services/Firebase';
 import BlogBar from './BlogBar';
 import {collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import {useAlertContext} from '../../contexts/AlertContext';
 
 const BlogCreate = () => {
 
   const titleRef = useRef();
   const bodyRef = useRef();
   const navigate = useNavigate();
+  const {alert, showAlert} = useAlertContext();
 
   const addBlog = async (e) =>{ 
     e.preventDefault();
@@ -18,6 +20,7 @@ const BlogCreate = () => {
         body: bodyRef.current.value
       })
       navigate('/blog')
+      showAlert('Blog Created!');
     } catch (error) {
       console.log('tda error ' + error);
     }

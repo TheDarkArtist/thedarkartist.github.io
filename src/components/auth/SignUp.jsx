@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import {useAlertContext} from '../../contexts/AlertContext';
 
 import tda from "../../assets/tda.png"
 import { AiOutlineClose } from "react-icons/ai";
@@ -14,6 +15,7 @@ const SignUp = ({ handleSignupForm, handleLoginSignup }) => {
         const passwordRef = useRef();
         const usernameRef = useRef();
         const navigate = useNavigate();
+        const {alert, showAlert} = useAlertContext();
 
         const handleOnSubmit = async (e) => {
                 e.preventDefault();
@@ -21,6 +23,7 @@ const SignUp = ({ handleSignupForm, handleLoginSignup }) => {
                 verifyEmail()
                 navigate('/');
                 handleSignupForm();
+                showAlert('Signed Up!')
         };
 
         return <>
