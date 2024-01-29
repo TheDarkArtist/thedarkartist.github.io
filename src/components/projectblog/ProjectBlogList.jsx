@@ -59,9 +59,9 @@ const ProjectBlogList = () => {
               {blogs ? filteredBlogs.map((blog) => (
                 <Link key={blog.id} className='w-full md:mx-6 my-2 md:w-[30%] md:min-w-[25rem] md:max-w-[35rem]' to={`details/${blog.id}`}>
                   <div className='w-full border rounded-b border-green-500 my-2 lg:mx-2 shadow-md shadow-green-700' >
-                    <div className='bg-green-700 dark:bg-red-900 w-full px-2 text-white py-1'>{blog.title}</div>
+                    <div className='bg-green-700 dark:bg-red-900 w-full px-2 text-white font-bold py-1'>{blog.title}</div>
                     <div className='flex w-full justify-end pr-2' >
-                      {blog.languages.map((language) => (<span className=' m-1 text-sm text-red-950 dark:text-green-400'>{language}</span>))}
+                      {blog.languages.map((language) => (<span key={blog.id} className=' m-1 text-sm font-bold text-red-950 dark:text-green-400'>{language}</span>))}
                     </div>
                   </div>
                 </Link>
