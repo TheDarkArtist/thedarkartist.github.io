@@ -78,9 +78,9 @@ const About = () => {
           <div className='text-sm py-2 text-blue-700' >For signed in users, email and name will be autofilled!</div>
           <div>
             <form onSubmit={handleSubmit} >
-            <input required ref={nameRef} defaultValue={currentUser && currentUser.name.first +' '+ currentUser.name.last} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
-            <input required ref={emailRef} defaultValue={ currentUser && currentUser.email} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
-            <textarea required ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 line-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
+            <input ref={nameRef} defaultValue={currentUser && currentUser.name.first +' '+ currentUser.name.last} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 border border-blue-600 focus:outline-none' type="text" placeholder='Name' />
+            <input ref={emailRef} defaultValue={ currentUser && currentUser.email} className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 focus:outline-none border border-blue-600' type="email" required placeholder='Email' />
+            <textarea ref={msgRef}  className='my-2 w-full p-2 bg-blue-200 dark:bg-blue-950 line-none border border-blue-600' name="about-contact-msg" id="about-contact-msg" cols="30" rows="10" placeholder='Shoot...'></textarea>
             <div className='w-full flex justify-end'><button ref={bottomRef} className='bg-green-700 hover:bg-green-800 my-2 p-1 focus:outline-none w-20 text-green-200' >Send</button></div>
             </form>
           </div>

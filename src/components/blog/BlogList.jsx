@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RotatingLines } from 'react-loader-spinner';
 
 import { db } from '../../services/Firebase';
@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
+  const [filteredBlogs, setFilteredBlogs] = useState([]);
   const {loading, showLoading, hideLoading}  = useLoadingContext();
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const BlogList = () => {
           list.push({ id: doc.id, ...doc.data() })
         })
         setBlogs(list);
+        setFilteredBlogs(list); 
       }
       catch (err) {
         console.log(err)
@@ -34,6 +36,13 @@ const BlogList = () => {
     fetchBlogs();
   }, []);
 
+  const handleSearch = (searchTerm) =>{
+    const filtered = blogs.filter(blog=>
+      blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    setFilteredBlogs(searchTerm === '' ? blogs : filtered)
+  }
+
 
   return (
     <>
@@ -42,10 +51,10 @@ const BlogList = () => {
       {loading ? (<div className='absolute flex w-full top-1/2 justify-center' ><RotatingLines height='40' width='40' strokeColor='red' /></div>) : (
 
       <div>
-      <div className='py-6 w-full flex justify-center' ><Search parameter={'blogs'} /></div>
+      <div className='py-6 w-full flex justify-center' ><Search parameter={'blogs'} onSearch={handleSearch} /></div>
       <div className='flex justify-center p-1 w-full' >
         <ul className='w-full p-1 md:w-[80%]'>
-          {blogs ? blogs.map((blog, index) => (
+          {blogs ? filteredBlogs.map((blog, index) => (
             <Link key={index} to={`details/${blog.id}`}>
               <li key={index} className='bg-gradient-to-bl w-full min-h-[5rem] overflow-hidden border border-blue-700 rounded-b  my-4'>
                 <div className='bg-red-900 w-full px-2 text-white py-1'>{blog.title}</div>
