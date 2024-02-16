@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// Components 
+// Components
 import { SignIn, SignUp } from './components/auth';
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -14,7 +14,6 @@ function App() {
   const [open, setOpen] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false)
-  const loginFormID = document.getElementById("login-form");
 
   const handleSidebar = () => {
     const sidebar = document.querySelector("#sidebar");
